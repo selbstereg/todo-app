@@ -28,6 +28,7 @@ export class AppComponent {
 
   addTodoItem() {
     this.movies.push(this.theInput);
+    this.theInput = '';
   }
 
   deleteTodoItem(itemToDelete): void {
