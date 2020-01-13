@@ -8,14 +8,38 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  theInput = '';
   movies = [
-    'Anni umarmen',
-    'Mit Anni kuscheln',
-    'Anni anrufen',
-    'Lüften'
+    'Lampen kaufen',
+    'Teppiche kaufen?',
+    'Garderobe kaufen?',
+    'Vorhänge anbringen',
+    'Spiegel aufhängen',
+    'Rote Kästen aufhängen',
+    'Bilder kaufen',
+    'Bilder + Kalender aufhängen',
+    'überall Filzgleiter hinmachen',
+    'Ummelden (Vermieterformular nicht vergessen)',
+    'Lampen anbringen',
+    'Adressen ändern bei Krankenkasse, bahn, ...',
+    'Kühlschrank besorgen',
+    'GEZ bescheid geben'
   ];
+
+  addTodoItem() {
+    this.movies.push(this.theInput);
+  }
+
+  deleteTodoItem(itemToDelete): void {
+    this.movies = this.movies.filter(item => item !== itemToDelete);
+    console.log(itemToDelete);
+  }
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+  }
+
+  printToConsole() {
+    console.log(this.movies);
   }
 }
