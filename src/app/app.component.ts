@@ -27,13 +27,12 @@ export class AppComponent {
   ];
 
   addTodoItem() {
-    this.movies.push(this.theInput);
+    this.movies.unshift(this.theInput);
     this.theInput = '';
   }
 
   deleteTodoItem(itemToDelete): void {
     this.movies = this.movies.filter(item => item !== itemToDelete);
-    console.log(itemToDelete);
   }
 
   drop(event: CdkDragDrop<string[]>) {
