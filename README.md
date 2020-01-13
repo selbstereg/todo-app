@@ -1,3 +1,7 @@
+# Hosting on Github
+
+https://angular.io/guide/deployment#deploy-to-github-pages
+
 # Frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.22.
