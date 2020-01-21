@@ -1,38 +1,34 @@
-import {Component} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-
+import { HttpClient } from '@angular/common/http';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  theInput = '';
-  movies = [
-    'Lampen kaufen',
-    'Teppiche kaufen?',
-    'Garderobe kaufen?',
-    'Vorhänge anbringen',
-    'Spiegel aufhängen',
-    'Rote Kästen aufhängen',
-    'Bilder kaufen',
-    'Bilder + Kalender aufhängen',
-    'überall Filzgleiter hinmachen',
-    'Ummelden (Vermieterformular nicht vergessen)',
-    'Lampen anbringen',
-    'Adressen ändern bei Krankenkasse, bahn, ...',
-    'Kühlschrank besorgen',
-    'GEZ bescheid geben'
-  ];
+export class AppComponent implements OnInit {
 
-  addTodoItem() {
-    this.movies.unshift(this.theInput);
+  constructor(private httpClient: HttpClient,
+              private changeDetector: ChangeDetectorRef) {
+  }
+
+  private readonly TODOS_ENDPOINT_URL = 'http://localhost:8080/api/todos';
+  theInput = '';
+  movies = [];
+
+  ngOnInit(): void {
+    this.fetchTodos();
+  }
+
+  onAddTodoItem() {
+    this.addTodoItem();
     this.theInput = '';
   }
 
-  deleteTodoItem(itemToDelete): void {
-    this.movies = this.movies.filter(item => item !== itemToDelete);
+  onDeleteTodoItem(item): void {
+    this.deleteTodoItem(item);
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -42,4 +38,24 @@ export class AppComponent {
   printToConsole() {
     console.log(this.movies);
   }
+
+  private fetchTodos(): void {
+    this.httpClient.get(this.TODOS_ENDPOINT_URL).pipe(
+      take(1)
+    ).subscribe((body: string[]) => this.movies = body);
+  }
+
+  private addTodoItem(): void {
+    this.httpClient.post(this.TODOS_ENDPOINT_URL, this.theInput).pipe(
+      take(1)
+    ).subscribe(() => this.fetchTodos());
+  }
+
+  private deleteTodoItem(itemToDelete: string): void {
+    const itemId: number = this.movies.findIndex((item) => item === itemToDelete);
+    this.httpClient.delete(`${this.TODOS_ENDPOINT_URL}/${itemId}`).pipe(
+      take(1)
+    ).subscribe(() => this.fetchTodos());
+  }
+
 }
