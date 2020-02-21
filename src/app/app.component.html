@@ -1,9 +1,11 @@
-
 <p>Hier neue Todos eintragen:</p>
 <input [(ngModel)]="theInput"><button (click)="onAddTodoItem()">+</button>
-<p>Todos:</p>
-<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-  <div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}<button (click)="onDeleteTodoItem(movie)">x</button></div>
+<div class="drag-view">
+  <p>Todos:</p>
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}<button
+        (click)="onDeleteTodoItem(movie)">x</button></div>
+  </div>
+  <button (click)=printToConsole()>drucken</button>
+  <router-outlet></router-outlet>
 </div>
-<button (click)=printToConsole()>drucken</button>
-<router-outlet></router-outlet>
