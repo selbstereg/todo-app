@@ -31,6 +31,10 @@ export class AppComponent implements OnInit {
     this.deleteTodoItem(item);
   }
 
+  onRefresh() {
+    this.fetchTodos();
+  }
+
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
   }
