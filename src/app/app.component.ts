@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
               private changeDetector: ChangeDetectorRef) {
   }
 
-  private readonly TODOS_ENDPOINT_URL = 'http://obscure-hollows-92479.herokuapp.com/api/todos';
+  private readonly TODOS_ENDPOINT_URL = 'https://obscure-hollows-92479.herokuapp.com/api/todos';
   theInput = '';
   movies = [];
 
