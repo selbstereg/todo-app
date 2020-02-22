@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  backendUrl: "https://obscure-hollows-92479.herokuapp.com"
 };

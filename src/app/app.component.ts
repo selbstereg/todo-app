@@ -2,6 +2,7 @@ import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@an
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
               private changeDetector: ChangeDetectorRef) {
   }
 
-  private readonly TODOS_ENDPOINT_URL = 'https://obscure-hollows-92479.herokuapp.com/api/todos';
+  private readonly TODOS_ENDPOINT_URL = environment.backendUrl + '/api/todos';
   theInput = '';
   movies = [];
 
