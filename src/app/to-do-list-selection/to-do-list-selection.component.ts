@@ -13,7 +13,8 @@ import { take } from 'rxjs/operators';
 export class ToDoListSelectionComponent implements OnInit {
   
   private readonly TO_DO_LISTS_ENDPOINT_URL = environment.backendUrl + '/api/todo-lists';
-  toDoLists: ToDoList[];
+  private readonly ITEM_ADDER_PLACEHOLDER = "Neue To-Do Liste";
+  private toDoLists: ToDoList[];
 
   constructor(private httpClient: HttpClient) {
   }

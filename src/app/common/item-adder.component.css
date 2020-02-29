@@ -1,0 +1,13 @@
+.float-right {
+  float: right;
+}
+
+.wide-input {
+  width: 100%
+}
+
+.wide-input-span {
+  display: block;
+  overflow: hidden;
+  padding-right: 10px;
+}

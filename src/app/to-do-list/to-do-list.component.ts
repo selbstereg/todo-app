@@ -16,16 +16,11 @@ export class ToDoListComponent implements OnInit {
   }
 
   private readonly TO_DOS_ENDPOINT_URL = environment.backendUrl + '/api/todos';
-  theInput = '';
-  toDos = [];
+  private readonly ITEM_ADDER_PLACEHOLDER = "Neues To Do";
+  private toDos = [];
 
   ngOnInit(): void {
     this.fetchToDos();
-  }
-
-  onAddToDoItem() {
-    this.addToDoItem();
-    this.theInput = '';
   }
 
   onDeleteToDoItem(item): void {
@@ -46,8 +41,8 @@ export class ToDoListComponent implements OnInit {
     ).subscribe((body: string[]) => this.toDos = body);
   }
 
-  private addToDoItem(): void {
-    this.httpClient.post(this.TO_DOS_ENDPOINT_URL, this.theInput).pipe(
+  private addToDoItem(toDoItem: string): void {
+    this.httpClient.post(this.TO_DOS_ENDPOINT_URL, toDoItem).pipe(
       take(1)
     ).subscribe(() => this.fetchToDos());
   }
