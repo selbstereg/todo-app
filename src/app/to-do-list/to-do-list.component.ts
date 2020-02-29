@@ -40,10 +40,6 @@ export class ToDoListComponent implements OnInit {
     moveItemInArray(this.toDos, event.previousIndex, event.currentIndex);
   }
 
-  printToConsole() {
-    console.log(this.toDos);
-  }
-
   private fetchToDos(): void {
     this.httpClient.get(this.TODOS_ENDPOINT_URL).pipe(
       take(1)
