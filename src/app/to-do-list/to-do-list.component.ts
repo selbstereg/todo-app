@@ -17,50 +17,50 @@ export class ToDoListComponent implements OnInit {
 
   private readonly TODOS_ENDPOINT_URL = environment.backendUrl + '/api/todos';
   theInput = '';
-  movies = [];
+  toDos = [];
 
   ngOnInit(): void {
-    this.fetchTodos();
+    this.fetchToDos();
   }
 
-  onAddTodoItem() {
-    this.addTodoItem();
+  onAddToDoItem() {
+    this.addToDoItem();
     this.theInput = '';
   }
 
-  onDeleteTodoItem(item): void {
-    this.deleteTodoItem(item);
+  onDeleteToDoItem(item): void {
+    this.deleteToDoItem(item);
   }
 
   onRefresh() {
-    this.fetchTodos();
+    this.fetchToDos();
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.toDos, event.previousIndex, event.currentIndex);
   }
 
   printToConsole() {
-    console.log(this.movies);
+    console.log(this.toDos);
   }
 
-  private fetchTodos(): void {
+  private fetchToDos(): void {
     this.httpClient.get(this.TODOS_ENDPOINT_URL).pipe(
       take(1)
-    ).subscribe((body: string[]) => this.movies = body);
+    ).subscribe((body: string[]) => this.toDos = body);
   }
 
-  private addTodoItem(): void {
+  private addToDoItem(): void {
     this.httpClient.post(this.TODOS_ENDPOINT_URL, this.theInput).pipe(
       take(1)
-    ).subscribe(() => this.fetchTodos());
+    ).subscribe(() => this.fetchToDos());
   }
 
-  private deleteTodoItem(itemToDelete: string): void {
-    const itemId: number = this.movies.findIndex((item) => item === itemToDelete);
+  private deleteToDoItem(itemToDelete: string): void {
+    const itemId: number = this.toDos.findIndex((item) => item === itemToDelete);
     this.httpClient.delete(`${this.TODOS_ENDPOINT_URL}/${itemId}`).pipe(
       take(1)
-    ).subscribe(() => this.fetchTodos());
+    ).subscribe(() => this.fetchToDos());
   }
 
 }

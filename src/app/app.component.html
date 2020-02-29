@@ -1,15 +1,3 @@
 <p>Hier neue Todos eintragen:</p>
-<div class="drag-drop-view-container">
-  <button (click)="onAddTodoItem()" class="float-right">+</button>
-  <span class="wide-input-span"><input [(ngModel)]="theInput" class="wide-input"></span>
-  <p>Todos:
-    <button (click)="onRefresh()" class="float-right">Aktualisieren</button>
-  </p>
-  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}<button
-        (click)="onDeleteTodoItem(movie)">x</button></div>
-  </div>
-  <button (click)=printToConsole()>drucken</button>
-</div>
 <to-do-list></to-do-list>
 <router-outlet></router-outlet>

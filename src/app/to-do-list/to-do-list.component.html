@@ -5,8 +5,8 @@
         <button (click)="onRefresh()" class="float-right">Aktualisieren</button>
     </p>
     <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}<button
-                (click)="onDeleteTodoItem(movie)">x</button></div>
+        <div class="example-box" *ngFor="let toDo of toDos" cdkDrag>{{toDo}}<button
+                (click)="onDeleteTodoItem(toDo)">x</button></div>
     </div>
     <button (click)=printToConsole()>drucken</button>
 </div>
