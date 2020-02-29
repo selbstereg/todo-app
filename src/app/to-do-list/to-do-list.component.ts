@@ -15,7 +15,7 @@ export class ToDoListComponent implements OnInit {
     private changeDetector: ChangeDetectorRef) {
   }
 
-  private readonly TODOS_ENDPOINT_URL = environment.backendUrl + '/api/todos';
+  private readonly TO_DOS_ENDPOINT_URL = environment.backendUrl + '/api/todos';
   theInput = '';
   toDos = [];
 
@@ -41,20 +41,20 @@ export class ToDoListComponent implements OnInit {
   }
 
   private fetchToDos(): void {
-    this.httpClient.get(this.TODOS_ENDPOINT_URL).pipe(
+    this.httpClient.get(this.TO_DOS_ENDPOINT_URL).pipe(
       take(1)
     ).subscribe((body: string[]) => this.toDos = body);
   }
 
   private addToDoItem(): void {
-    this.httpClient.post(this.TODOS_ENDPOINT_URL, this.theInput).pipe(
+    this.httpClient.post(this.TO_DOS_ENDPOINT_URL, this.theInput).pipe(
       take(1)
     ).subscribe(() => this.fetchToDos());
   }
 
   private deleteToDoItem(itemToDelete: string): void {
     const itemId: number = this.toDos.findIndex((item) => item === itemToDelete);
-    this.httpClient.delete(`${this.TODOS_ENDPOINT_URL}/${itemId}`).pipe(
+    this.httpClient.delete(`${this.TO_DOS_ENDPOINT_URL}/${itemId}`).pipe(
       take(1)
     ).subscribe(() => this.fetchToDos());
   }

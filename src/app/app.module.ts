@@ -10,12 +10,14 @@ import { ToDoListComponent } from './to-do-list/to-do-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToDoListSelectionComponent } from './to-do-list-selection/to-do-list-selection.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToDoListComponent
+    ToDoListComponent,
+    ToDoListSelectionComponent
   ],
   imports: [
     DragDropModule,

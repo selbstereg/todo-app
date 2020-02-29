@@ -1,6 +1,6 @@
 <mat-sidenav-container>
     <mat-sidenav position="end" [(opened)]="sideNavOpened">
-        Start
+        <to-do-list-selection *ngIf="sideNavOpened"></to-do-list-selection>
     </mat-sidenav>
     <mat-sidenav-content>
         <p>Hier neue Todos eintragen:
