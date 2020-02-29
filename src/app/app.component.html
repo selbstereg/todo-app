@@ -1,3 +1,13 @@
-<p>Hier neue Todos eintragen:<button class="float-right"><fa-icon [icon]="faBars"></fa-icon></button></p>
-<to-do-list></to-do-list>
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+    <mat-sidenav position="end" [(opened)]="sideNavOpened">
+        Start
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <p>Hier neue Todos eintragen:
+            <button class="float-right" (click)="openSideNav()">
+                <fa-icon [icon]="faBars"></fa-icon>
+            </button>
+        </p>
+        <to-do-list></to-do-list>
+    </mat-sidenav-content>
+</mat-sidenav-container>

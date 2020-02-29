@@ -8,4 +8,9 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 })
 export class AppComponent {
   readonly faBars = faBars;
+  sideNavOpened = false;
+
+  openSideNav() {
+    this.sideNavOpened = true;
+  }
 }
