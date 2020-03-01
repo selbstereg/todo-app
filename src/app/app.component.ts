@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { NamedEntity } from './to-do-list/model/named-entity.model';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,19 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 })
 export class AppComponent {
   readonly faBars = faBars;
-  sideNavOpened = false;
+  private sideNavOpened = false;
+  private selectedToDoList: NamedEntity = null;
 
   openSideNav() {
     this.sideNavOpened = true;
+  }
+
+  closeSideNav() {
+    this.sideNavOpened = false;
+  }
+
+  onSelectToDoList(toDoList: NamedEntity) {
+    this.closeSideNav();
+    this.selectedToDoList = toDoList;
   }
 }

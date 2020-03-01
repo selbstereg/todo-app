@@ -1,5 +1,5 @@
 <ul>
-    <li *ngFor="let toDoList of toDoLists">
+    <li *ngFor="let toDoList of toDoLists" (click)="onSelect(toDoList)">
         {{ toDoList.name }}
     </li>
     <item-adder [placeholder]="ITEM_ADDER_PLACEHOLDER"></item-adder>

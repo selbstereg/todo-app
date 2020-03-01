@@ -1,8 +1,9 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input} from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { NamedEntity } from './model/named-entity.model';
 
 @Component({
   selector: 'to-do-list',
@@ -17,6 +18,7 @@ export class ToDoListComponent implements OnInit {
 
   private readonly TO_DOS_ENDPOINT_URL = environment.backendUrl + '/api/todos';
   private readonly ITEM_ADDER_PLACEHOLDER = "Neues To Do";
+  @Input() selectedToDoList: NamedEntity;
   private toDos = [];
 
   ngOnInit(): void {
