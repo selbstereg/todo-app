@@ -14,10 +14,10 @@ export class ItemAdderComponent {
   onAddItem() {
     this.addItem.emit(this.input);
     this.input = '';
+    this.isInputEmpty = true;
   }
 
   onInputChange(input: string) {
-    console.log("Is iput empty: ", input.length === 0);
     this.isInputEmpty = input.length === 0;
   }
 }
