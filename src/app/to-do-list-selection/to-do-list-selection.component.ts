@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { NamedEntity } from '../to-do-list/model/named-entity.model';
 import { environment } from 'src/environments/environment';
 import { take } from 'rxjs/operators';
-import { TO_DO_LISTS_ENDPOINT_URL } from '../common/constants';
+import { TO_DO_LISTS_ENDPOINT_URL, PLACEHOLDER_ADD_NEW_TO_DO_LIST } from '../common/constants';
 
 
 @Component({
@@ -13,7 +13,7 @@ import { TO_DO_LISTS_ENDPOINT_URL } from '../common/constants';
 })
 export class ToDoListSelectionComponent implements OnInit {
   
-  private readonly ITEM_ADDER_PLACEHOLDER = "Neue To-Do Liste";
+  private readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO_LIST;
 
   @Output() selectToDoList = new EventEmitter<NamedEntity>();
   private toDoLists: NamedEntity[];

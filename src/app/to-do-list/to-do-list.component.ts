@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { NamedEntity } from './model/named-entity.model';
-import { TO_DO_LISTS_ENDPOINT_URL } from '../common/constants';
+import { TO_DO_LISTS_ENDPOINT_URL, PLACEHOLDER_ADD_NEW_TO_DO } from '../common/constants';
 import { ToDo } from './model/to-do.model';
 
 @Component({
@@ -19,7 +19,7 @@ export class ToDoListComponent implements OnInit {
   }
 
   private readonly TO_DOS_ENDPOINT_URL = environment.backendUrl + '/api/todos';
-  private readonly ITEM_ADDER_PLACEHOLDER = "Neues To Do";
+  private readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO;
   @Input() selectedToDoList: NamedEntity;
   private toDos = [];
 
