@@ -13,10 +13,10 @@ import { TO_DO_LISTS_ENDPOINT_URL, PLACEHOLDER_ADD_NEW_TO_DO_LIST } from '../com
 })
 export class ToDoListSelectionComponent implements OnInit {
   
-  private readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO_LIST;
-
   @Output() selectToDoList = new EventEmitter<NamedEntity>();
-  private toDoLists: NamedEntity[];
+  
+  readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO_LIST;
+  toDoLists: NamedEntity[];
 
   constructor(private httpClient: HttpClient) {
   }

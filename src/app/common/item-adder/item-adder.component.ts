@@ -8,7 +8,7 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 export class ItemAdderComponent {
   @Input() placeholder = '';
   @Output() addItem = new EventEmitter<string>();
-  private input: string;
+  input: string;
   isInputEmpty: boolean = true;
 
   onAddItem() {

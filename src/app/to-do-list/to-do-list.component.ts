@@ -14,14 +14,15 @@ import { ToDo } from './model/to-do.model';
 })
 export class ToDoListComponent implements OnInit, OnChanges {
   
+  @Input() selectedToDoList: NamedEntity;
+
+  readonly TO_DOS_ENDPOINT_URL = environment.backendUrl + '/api/todos';
+  readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO;
+  toDos = [];
+  
   constructor(private httpClient: HttpClient) {
   }
-  
-  private readonly TO_DOS_ENDPOINT_URL = environment.backendUrl + '/api/todos';
-  private readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO;
-  @Input() selectedToDoList: NamedEntity;
-  private toDos = [];
-  
+
   ngOnInit(): void {
     this.fetchToDos();
   }
@@ -47,7 +48,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
     ).subscribe((body: string[]) => this.toDos = body);
   }
 
-  private addToDo(toDoName: string): void {
+  addToDo(toDoName: string): void {
     const toDo: ToDo = { name: toDoName, priority: this.toDos.length };
     const url: string = TO_DO_LISTS_ENDPOINT_URL + this.selectedToDoList.id;
     this.httpClient.post(url, toDo).pipe(
@@ -55,7 +56,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
     ).subscribe(() => this.fetchToDos());
   }
 
-  private deleteToDoItem(itemToDelete: NamedEntity): void {
+  deleteToDoItem(itemToDelete: NamedEntity): void {
     const url: string = TO_DO_LISTS_ENDPOINT_URL + this.selectedToDoList.id + '/to-dos/' + itemToDelete.id;
     this.httpClient.delete(url).pipe(
       take(1)

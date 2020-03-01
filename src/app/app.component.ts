@@ -12,9 +12,9 @@ import { take } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   readonly faBars = faBars;
-  private sideNavOpened = false;
-  private selectedToDoList: NamedEntity = null;
-  private listTitle = '';
+  selectedToDoList: NamedEntity = null;
+  sideNavOpened = false;
+  listTitle = '';
   
   constructor(private httpClient: HttpClient) {}
 
