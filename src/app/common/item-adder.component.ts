@@ -12,5 +12,6 @@ export class ItemAdderComponent {
 
   onAddItem() {
     this.addItem.emit(this.input);
+    this.input = '';
   }
 }
