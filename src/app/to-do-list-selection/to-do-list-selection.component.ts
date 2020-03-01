@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ToDoList } from './model/to-do-list.model';
+import { NamedEntity } from '../to-do-list/model/named-entity.model';
 import { environment } from 'src/environments/environment';
 import { take } from 'rxjs/operators';
 
@@ -14,7 +14,7 @@ export class ToDoListSelectionComponent implements OnInit {
   
   private readonly TO_DO_LISTS_ENDPOINT_URL = environment.backendUrl + '/api/todo-lists';
   private readonly ITEM_ADDER_PLACEHOLDER = "Neue To-Do Liste";
-  private toDoLists: ToDoList[];
+  private toDoLists: NamedEntity[];
 
   constructor(private httpClient: HttpClient) {
   }
@@ -26,6 +26,6 @@ export class ToDoListSelectionComponent implements OnInit {
   fetchToDoLists() {
     this.httpClient.get(this.TO_DO_LISTS_ENDPOINT_URL).pipe(
       take(1)
-    ).subscribe((body: ToDoList[]) => this.toDoLists = body);
+    ).subscribe((body: NamedEntity[]) => this.toDoLists = body);
   }
 }
