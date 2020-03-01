@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   readonly faBars = faBars;
   private sideNavOpened = false;
   private selectedToDoList: NamedEntity = null;
+  private listTitle = '';
   
   constructor(private httpClient: HttpClient) {}
 
@@ -29,6 +30,11 @@ export class AppComponent implements OnInit {
 
   closeSideNav() {
     this.sideNavOpened = false;
+  }
+
+  setSelectedToDoList(toDoList: NamedEntity) {
+    this.selectedToDoList = toDoList;
+    this.listTitle = toDoList.name;
   }
 
   onSelectToDoList(toDoList: NamedEntity) {
