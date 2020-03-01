@@ -55,7 +55,7 @@ export class ToDoListComponent implements OnInit {
   }
 
   private deleteToDoItem(itemToDelete: NamedEntity): void {
-    const url: string = TO_DO_LISTS_ENDPOINT_URL + this.selectedToDoList.id + '/todos/' + itemToDelete.id;
+    const url: string = TO_DO_LISTS_ENDPOINT_URL + this.selectedToDoList.id + '/to-dos/' + itemToDelete.id;
     this.httpClient.delete(url).pipe(
       take(1)
     ).subscribe(() => this.fetchToDos());
