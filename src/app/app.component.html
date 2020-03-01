@@ -3,7 +3,7 @@
         <to-do-list-selection *ngIf="sideNavOpened" (selectToDoList)="onSelectToDoList($event)"></to-do-list-selection>
     </mat-sidenav>
     <mat-sidenav-content>
-        <p>Hier neue Todos eintragen:
+        <p>{{ selectedToDoList.name }}
             <button class="float-right" (click)="openSideNav()">
                 <fa-icon [icon]="faBars"></fa-icon>
             </button>
