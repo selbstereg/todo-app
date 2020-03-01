@@ -11,7 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToDoListSelectionComponent } from './to-do-list-selection/to-do-list-selection.component';
-import { ItemAdderComponent } from './common/item-adder.component';
+import { ItemAdderComponent } from './common/item-adder/item-adder.component';
 
 
 @NgModule({
