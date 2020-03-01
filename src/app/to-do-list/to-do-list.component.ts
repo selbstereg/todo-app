@@ -54,12 +54,11 @@ export class ToDoListComponent implements OnInit {
     ).subscribe(() => this.fetchToDos());
   }
 
-  private deleteToDoItem(itemToDelete: string): void {
-    throw new Error("deleteToDoItem not implemented!");
-    /*const itemId: number = this.toDos.findIndex((item) => item === itemToDelete);
-    this.httpClient.delete(`${this.TO_DOS_ENDPOINT_URL}/${itemId}`).pipe(
+  private deleteToDoItem(itemToDelete: NamedEntity): void {
+    const url: string = TO_DO_LISTS_ENDPOINT_URL + this.selectedToDoList.id + '/todos/' + itemToDelete.id;
+    this.httpClient.delete(url).pipe(
       take(1)
-    ).subscribe(() => this.fetchToDos());*/
+    ).subscribe(() => this.fetchToDos());
   }
 
 }
