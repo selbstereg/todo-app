@@ -34,4 +34,10 @@ export class ToDoListSelectionComponent implements OnInit {
   onSelect(toDoList: NamedEntity) {
     this.selectToDoList.emit(toDoList);
   }
+
+  onAddToDoList(listName: string) {
+    this.httpClient.post(TO_DO_LISTS_ENDPOINT_URL, listName).pipe(
+      take(1)
+    ).subscribe((body: NamedEntity) => this.selectToDoList.emit(body));
+  }
 }

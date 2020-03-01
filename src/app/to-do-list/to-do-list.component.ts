@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
@@ -12,23 +12,24 @@ import { ToDo } from './model/to-do.model';
   templateUrl: './to-do-list.component.html',
   styleUrls: ['./to-do-list.component.css']
 })
-export class ToDoListComponent implements OnInit {
-
-  constructor(private httpClient: HttpClient,
-    private changeDetector: ChangeDetectorRef) {
+export class ToDoListComponent implements OnInit, OnChanges {
+  
+  constructor(private httpClient: HttpClient) {
   }
-
+  
   private readonly TO_DOS_ENDPOINT_URL = environment.backendUrl + '/api/todos';
   private readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO;
   @Input() selectedToDoList: NamedEntity;
   private toDos = [];
-
+  
   ngOnInit(): void {
     this.fetchToDos();
   }
-
-  onDeleteToDoItem(item): void {
-    this.deleteToDoItem(item);
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.selectedToDoListChanged(changes)) {
+      this.fetchToDos();
+    }
   }
 
   onRefresh() {
@@ -59,6 +60,10 @@ export class ToDoListComponent implements OnInit {
     this.httpClient.delete(url).pipe(
       take(1)
     ).subscribe(() => this.fetchToDos());
+  }
+
+  private selectedToDoListChanged(changes: SimpleChanges) {
+    return changes.selectedToDoList;
   }
 
 }

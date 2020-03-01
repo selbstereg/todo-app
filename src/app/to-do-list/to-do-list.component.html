@@ -6,7 +6,7 @@
     <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let toDo of toDos.reverse()" cdkDrag>
             {{toDo.name}}
-            <button (click)="onDeleteToDoItem(toDo)">
+            <button (click)="deleteToDoItem(toDo)">
                 x
             </button>
         </div>
