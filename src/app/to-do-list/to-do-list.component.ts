@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { NamedEntity } from './model/named-entity.model';
+import { TO_DO_LISTS_ENDPOINT_URL } from '../common/constants';
+import { ToDo } from './model/to-do.model';
 
 @Component({
   selector: 'to-do-list',
@@ -38,22 +40,26 @@ export class ToDoListComponent implements OnInit {
   }
 
   private fetchToDos(): void {
-    this.httpClient.get(this.TO_DOS_ENDPOINT_URL).pipe(
+    const url: string = TO_DO_LISTS_ENDPOINT_URL + this.selectedToDoList.id + '/to-dos'
+    this.httpClient.get(url).pipe(
       take(1)
     ).subscribe((body: string[]) => this.toDos = body);
   }
 
-  private addToDoItem(toDoItem: string): void {
-    this.httpClient.post(this.TO_DOS_ENDPOINT_URL, toDoItem).pipe(
+  private addToDo(toDoName: string): void {
+    const toDo: ToDo = { name: toDoName, priority: this.toDos.length };
+    const url: string = TO_DO_LISTS_ENDPOINT_URL + this.selectedToDoList.id;
+    this.httpClient.post(url, toDo).pipe(
       take(1)
     ).subscribe(() => this.fetchToDos());
   }
 
   private deleteToDoItem(itemToDelete: string): void {
-    const itemId: number = this.toDos.findIndex((item) => item === itemToDelete);
+    throw new Error("deleteToDoItem not implemented!");
+    /*const itemId: number = this.toDos.findIndex((item) => item === itemToDelete);
     this.httpClient.delete(`${this.TO_DOS_ENDPOINT_URL}/${itemId}`).pipe(
       take(1)
-    ).subscribe(() => this.fetchToDos());
+    ).subscribe(() => this.fetchToDos());*/
   }
 
 }

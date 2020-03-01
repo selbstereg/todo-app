@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { NamedEntity } from '../to-do-list/model/named-entity.model';
 import { environment } from 'src/environments/environment';
 import { take } from 'rxjs/operators';
+import { TO_DO_LISTS_ENDPOINT_URL } from '../common/constants';
 
 
 @Component({
@@ -12,7 +13,6 @@ import { take } from 'rxjs/operators';
 })
 export class ToDoListSelectionComponent implements OnInit {
   
-  private readonly TO_DO_LISTS_ENDPOINT_URL = environment.backendUrl + '/api/todo-lists';
   private readonly ITEM_ADDER_PLACEHOLDER = "Neue To-Do Liste";
 
   @Output() selectToDoList = new EventEmitter<NamedEntity>();
@@ -26,7 +26,7 @@ export class ToDoListSelectionComponent implements OnInit {
   }
 
   fetchToDoLists() {
-    this.httpClient.get(this.TO_DO_LISTS_ENDPOINT_URL).pipe(
+    this.httpClient.get(TO_DO_LISTS_ENDPOINT_URL).pipe(
       take(1)
     ).subscribe((body: NamedEntity[]) => this.toDoLists = body);
   }
