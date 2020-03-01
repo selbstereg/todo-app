@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.httpClient.get(TO_DO_LISTS_ENDPOINT_URL).pipe(
       take(1)
-    ).subscribe((body: NamedEntity[]) => this.selectedToDoList = body[0]);
+    ).subscribe((body: NamedEntity[]) => this.setSelectedToDoList(body[0]));
   }
 
   openSideNav() {
@@ -39,6 +39,6 @@ export class AppComponent implements OnInit {
 
   onSelectToDoList(toDoList: NamedEntity) {
     this.closeSideNav();
-    this.selectedToDoList = toDoList;
+    this.setSelectedToDoList(toDoList);
   }
 }
