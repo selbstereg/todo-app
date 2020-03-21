@@ -45,7 +45,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
     const url: string = TO_DO_LISTS_ENDPOINT_URL + this.selectedToDoList.id + '/to-dos'
     this.httpClient.get(url).pipe(
       take(1)
-    ).subscribe((body: string[]) => this.toDos = body);
+    ).subscribe((body: string[]) => this.toDos = body.reverse());
   }
 
   addToDo(toDoName: string): void {

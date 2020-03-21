@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "dev-start": "ng serve",
+    "dev-start": "ng serve --aot",
     "dev-build": "ng build",
     "deploy-to-github-pages": "./deploy.sh",
     "test": "ng test",
