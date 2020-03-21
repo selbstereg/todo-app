@@ -1,9 +1,7 @@
 <ul>
     <li *ngFor="let toDoList of toDoLists" (click)="onSelect(toDoList)" class="box-item">
         {{ toDoList.name }}
-        <button stop-click-propagation (click)="deleteToDoList(toDoList)">
-            x
-        </button>
+        <delete-button stop-click-propagation (delete)="deleteToDoList(toDoList)"></delete-button>
     </li>
     <item-adder [placeholder]="ITEM_ADDER_PLACEHOLDER" (addItem)="onAddToDoList($event)"></item-adder>
 </ul>
