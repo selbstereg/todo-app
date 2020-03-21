@@ -1,7 +1,7 @@
 <ul>
     <li *ngFor="let toDoList of toDoLists" (click)="onSelect(toDoList)" class="box-item">
         {{ toDoList.name }}
-        <button (click)="deleteToDoList(toDoList)">
+        <button stop-click-propagation (click)="deleteToDoList(toDoList)">
             x
         </button>
     </li>
