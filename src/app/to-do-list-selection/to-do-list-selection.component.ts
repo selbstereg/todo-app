@@ -37,7 +37,15 @@ export class ToDoListSelectionComponent implements OnInit {
 
   onAddToDoList(listName: string) {
     this.httpClient.post(TO_DO_LISTS_ENDPOINT_URL, listName).pipe(
-      take(1)
+      take(1)  // TODO: Find out if you really need to take 1
     ).subscribe((body: NamedEntity) => this.selectToDoList.emit(body));
+  }
+
+  // TODO: Add error toast, if list or to do can't be found
+  deleteToDoList(toDoList: NamedEntity) {
+    const url: string = TO_DO_LISTS_ENDPOINT_URL + toDoList.id;
+    this.httpClient.delete(url).pipe(
+      take(1)
+    ).subscribe(() => this.fetchToDoLists());
   }
 }
