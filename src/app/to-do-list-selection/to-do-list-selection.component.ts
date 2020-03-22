@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { NamedEntity } from '../to-do-list/model/named-entity.model';
 import { PLACEHOLDER_ADD_NEW_TO_DO_LIST } from '../common/constants';
 import { CrudClient } from '../common/services/crud-client.service';
@@ -13,10 +13,11 @@ import { ConfirmationDialogComponent } from '../common/confirmation-dialog/confi
 })
 export class ToDoListSelectionComponent implements OnInit {
   
+  @Input() selectedToDoList: NamedEntity;
   @Output() selectToDoList = new EventEmitter<NamedEntity>();
   
   readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO_LIST;
-  toDoLists: NamedEntity[];
+  toDoLists: NamedEntity[] = [];
 
   constructor(
     private crudClient: CrudClient,
@@ -55,5 +56,8 @@ export class ToDoListSelectionComponent implements OnInit {
 
   private deleteToDoList(toDoList: NamedEntity) {
     this.crudClient.deleteToDoList(toDoList.id).subscribe(() => this.fetchToDoLists());
+    if (toDoList.id === this.selectedToDoList.id) {
+      this.selectToDoList.emit(this.toDoLists[0]);
+    }
   }
 }
