@@ -27,7 +27,7 @@ button {
 input {
   height: 1.5em;
   border: 1px solid var(--border-color);
-  border-radius: 0px;
+  border-radius: 2px;
   padding: 0px;
   box-sizing: border-box;
 }
