@@ -20,7 +20,7 @@ import { SpinnerOverlayService } from './common/services/spinner-overlay.service
 import { CrudClient } from './common/services/crud-client.service';
 import { OverlayModule } from '@angular/cdk/overlay'
 import { FavouriteEinkaufItems } from './favourite-einkauf-items/favourite-einkauf-items.component';
-import { ConfirmationDialogComponent } from './common/delete-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from './common/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [

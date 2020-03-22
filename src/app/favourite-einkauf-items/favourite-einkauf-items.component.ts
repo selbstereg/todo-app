@@ -12,10 +12,8 @@ export class FavouriteEinkaufItems {
         'Bananen',
         'Brot',
         'Brotaufstrich',
-        'Käse',
         'Klopapier',
         'Milch',
-        'Veganer Brotaufstrich',
         'Zahnpasta'
     ];
     selectedItems: string[] = [];

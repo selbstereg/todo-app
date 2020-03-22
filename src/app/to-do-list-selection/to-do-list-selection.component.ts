@@ -3,7 +3,7 @@ import { NamedEntity } from '../to-do-list/model/named-entity.model';
 import { PLACEHOLDER_ADD_NEW_TO_DO_LIST } from '../common/constants';
 import { CrudClient } from '../common/services/crud-client.service';
 import { MatDialog } from '@angular/material';
-import { ConfirmationDialogComponent } from '../common/delete-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from '../common/confirmation-dialog/confirmation-dialog.component';
 
 
 @Component({
