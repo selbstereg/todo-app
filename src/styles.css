@@ -3,9 +3,9 @@
 
 :root {
   --background-color: #f1f1f1;
-  --secondary-background-color: #ffffff;
+  --secondary-background-color: #ebebeb;
   --text-color: black;
-  --secondary-text-color: #455454;
+  --border-color: #b3c2c2;
   --happy-color: #d2d2d3;
   --danger-color: #d10000;
 }
@@ -16,6 +16,24 @@
 }
 
 button {
+  height: 1.5em;
+  min-width: 1.5em;
+  background-color: var(--secondary-background-color);
+  border-radius: 2px;
+  padding: 0px 6px;
+  border: 1px solid var(--border-color);
+  box-sizing: border-box;
+}
+
+input {
+  height: 1.5em;
+  border: 1px solid var(--border-color);
+  border-radius: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+button + button {
   margin-right: 0.5em;
 }
 
