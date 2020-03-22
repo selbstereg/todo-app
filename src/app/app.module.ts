@@ -17,7 +17,7 @@ import { DeleteButtonComponent } from './common/delete-button/delete-button.comp
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSpinner } from '@angular/material';
 import { SpinnerOverlayService } from './common/services/spinner-overlay.service';
-import { ToDoListService } from './common/services/to-do-list.service';
+import { ApiClient } from './common/services/to-do-list.service';
 import { OverlayModule } from '@angular/cdk/overlay'
 
 @NgModule({
@@ -43,7 +43,7 @@ import { OverlayModule } from '@angular/cdk/overlay'
   ],
   providers: [
     SpinnerOverlayService,
-    ToDoListService
+    ApiClient
   ],
   bootstrap: [
     AppComponent,

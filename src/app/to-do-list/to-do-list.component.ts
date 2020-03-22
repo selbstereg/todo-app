@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { NamedEntity } from './model/named-entity.model';
 import { PLACEHOLDER_ADD_NEW_TO_DO } from '../common/constants';
 import { ToDo } from './model/to-do.model';
-import { ToDoListService } from '../common/services/to-do-list.service';
+import { ApiClient } from '../common/services/to-do-list.service';
 
 @Component({
   selector: 'to-do-list',
@@ -19,7 +19,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
   readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO;
   toDos: ToDo[] = [];
   
-  constructor(private toDoListService: ToDoListService) {
+  constructor(private apiClient: ApiClient) {
   }
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
   }
 
   private fetchToDos(): void {
-    this.toDoListService.fetchToDos(this.selectedToDoList.id).subscribe(
+    this.apiClient.fetchToDos(this.selectedToDoList.id).subscribe(
       (toDos: ToDo[]) => {
         this.toDos = toDos.reverse() // TODO: make the BE deliver the to dos in reverse order
       }
@@ -50,11 +50,11 @@ export class ToDoListComponent implements OnInit, OnChanges {
 
   addToDo(toDoName: string): void {
     const toDo: ToDo = { name: toDoName, priority: this.toDos.length, id: null };
-    this.toDoListService.addToDo(this.selectedToDoList.id, toDo).subscribe(() => this.fetchToDos());
+    this.apiClient.addToDo(this.selectedToDoList.id, toDo).subscribe(() => this.fetchToDos());
   }
 
   deleteToDo(toDo: ToDo): void {
-    this.toDoListService.deleteToDo(this.selectedToDoList.id, toDo.id).subscribe(() => this.fetchToDos());
+    this.apiClient.deleteToDo(this.selectedToDoList.id, toDo.id).subscribe(() => this.fetchToDos());
   }
 
   private selectedToDoListChanged(changes: SimpleChanges) {
