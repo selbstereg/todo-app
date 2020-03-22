@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { TO_DO_LISTS_ENDPOINT_URL } from '../constants';
 import { Observable } from 'rxjs';
 import { ToDo } from 'src/app/to-do-list/model/to-do.model';
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 import { SpinnerOverlayService } from './spinner-overlay.service';
 
 
@@ -19,13 +19,26 @@ export class ToDoListService {
         const url: string = `${TO_DO_LISTS_ENDPOINT_URL}${toDoListId}/to-dos`;
 
         this.spinnerOverlayService.showSpinner();
-        const toDoLists$ = (this.httpClient.get(url).pipe(take(1)) as Observable<ToDo[]>);
-        toDoLists$.subscribe(() => {
-            console.log("service also received todos");
-            this.spinnerOverlayService.hideSpinner();
-        });
+        const toDoLists$ = (this.httpClient.get(url).pipe(
+            take(1),
+            tap(this.hideSpinner)
+        ) as Observable<ToDo[]>);
 
         return toDoLists$;
     }
+
+    public addToDo(toDoListId: number, toDo: ToDo): Observable<ToDo> {
+        const url: string = `${TO_DO_LISTS_ENDPOINT_URL}${toDoListId}`;
+
+        this.spinnerOverlayService.showSpinner();
+        const toDo$ = this.httpClient.post(url, toDo).pipe(
+            take(1),
+            tap(this.hideSpinner)
+        ) as Observable<ToDo>;
+
+        return toDo$;
+    }
+
+    private hideSpinner = () => this.spinnerOverlayService.hideSpinner();
 
 }

@@ -54,11 +54,9 @@ export class ToDoListComponent implements OnInit, OnChanges {
   }
 
   addToDo(toDoName: string): void {
+    console.log("Add todo");
     const toDo: ToDo = { name: toDoName, priority: this.toDos.length };
-    const url: string = TO_DO_LISTS_ENDPOINT_URL + this.selectedToDoList.id;
-    this.httpClient.post(url, toDo).pipe(
-      take(1)
-    ).subscribe(() => this.fetchToDos());
+    this.toDoListService.addToDo(this.selectedToDoList.id, toDo).subscribe(() => this.fetchToDos());
   }
 
   deleteToDoItem(itemToDelete: NamedEntity): void {
