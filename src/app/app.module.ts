@@ -14,6 +14,10 @@ import { ToDoListSelectionComponent } from './to-do-list-selection/to-do-list-se
 import { ItemAdderComponent } from './common/item-adder/item-adder.component';
 import { StopClickPropagation } from './common/stop-click-propagation';
 import { DeleteButtonComponent } from './common/delete-button/delete-button.component';
+import { SpinnerOverlay } from './common/spinner-overlay/spinner-overlay.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SpinnerOverlayService } from './common/spinner-overlay/spinner-overlay.service';
+import { OverlayModule } from '@angular/cdk/overlay'
 
 @NgModule({
   declarations: [
@@ -22,7 +26,8 @@ import { DeleteButtonComponent } from './common/delete-button/delete-button.comp
     ToDoListSelectionComponent,
     ItemAdderComponent,
     StopClickPropagation,
-    DeleteButtonComponent
+    DeleteButtonComponent,
+    SpinnerOverlay
   ],
   imports: [
     DragDropModule,
@@ -32,9 +37,11 @@ import { DeleteButtonComponent } from './common/delete-button/delete-button.comp
     HttpClientModule,
     FontAwesomeModule,
     BrowserAnimationsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatProgressSpinnerModule,
+    OverlayModule
   ],
-  providers: [],
+  providers: [SpinnerOverlayService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
