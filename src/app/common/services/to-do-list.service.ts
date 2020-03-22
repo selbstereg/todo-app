@@ -17,50 +17,39 @@ export class ToDoListService {
     }
 
     public fetchToDoLists(): Observable<NamedEntity[]> {
+        const request = () => this.httpClient.get(TO_DO_LISTS_ENDPOINT_URL);
 
-        this.showSpinner();
-        const toDoLists$ = (this.httpClient.get(TO_DO_LISTS_ENDPOINT_URL).pipe(
-            take(1),
-            tap(this.hideSpinner)
-        ) as Observable<NamedEntity[]>);
-
-        return toDoLists$;
+        return this.sendRequest(request) as Observable<NamedEntity[]>;
     }
 
     public fetchToDos(toDoListId: number): Observable<ToDo[]> {
         const url: string = `${TO_DO_LISTS_ENDPOINT_URL}${toDoListId}/to-dos`;
+        const request = () => this.httpClient.get(url);
 
-        this.showSpinner();
-        const toDoLists$ = (this.httpClient.get(url).pipe(
-            take(1),
-            tap(this.hideSpinner)
-        ) as Observable<ToDo[]>);
-
-        return toDoLists$;
+        return this.sendRequest(request) as Observable<ToDo[]>;
     }
 
     public addToDo(toDoListId: number, toDo: ToDo): Observable<ToDo> {
         const url: string = `${TO_DO_LISTS_ENDPOINT_URL}${toDoListId}`;
+        const request = () => this.httpClient.post(url, toDo);
 
-        this.showSpinner();
-        const toDo$ = this.httpClient.post(url, toDo).pipe(
-            take(1),
-            tap(this.hideSpinner)
-        ) as Observable<ToDo>;
-
-        return toDo$;
+        return this.sendRequest(request) as Observable<ToDo>;
     }
 
     public deleteToDo(toDoListId: number, toDoId: number): Observable<ToDo> {
         const url: string = `${TO_DO_LISTS_ENDPOINT_URL}${toDoListId}/to-dos/${toDoId}`;
+        const request = () => this.httpClient.delete(url);
 
+        return this.sendRequest(request) as Observable<ToDo>;
+    }
+
+    private sendRequest(request: () => Observable<Object>) {
         this.showSpinner();
-        const toDo$ = this.httpClient.delete(url).pipe(
-            take(1),
-            tap(this.hideSpinner) 
-        ) as Observable<ToDo>;
 
-        return toDo$;
+        return request().pipe(
+            take(1),
+            tap(this.hideSpinner)
+        );
     }
 
     private hideSpinner = () => this.spinnerOverlayService.hideSpinner();
