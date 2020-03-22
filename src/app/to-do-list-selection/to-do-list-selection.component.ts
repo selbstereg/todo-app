@@ -43,7 +43,7 @@ export class ToDoListSelectionComponent implements OnInit {
 
   // TODO: Add error toast, if list or to do can't be found
   onClickDeleteButton(toDoList: NamedEntity) {
-    this.dialogService.open(ConfirmationDialogComponent, { data: { text: "asdf"} })
+    this.dialogService.open(ConfirmationDialogComponent, { data: { text: `"${toDoList.name}" wirklich löschen?`} })
       .afterClosed()
       .subscribe(confirmed => {
           if (confirmed) {
