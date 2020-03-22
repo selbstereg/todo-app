@@ -6,8 +6,7 @@
   --secondary-background-color: #ebebeb;
   --text-color: black;
   --border-color: #b3c2c2;
-  --happy-color: #d2d2d3;
-  --danger-color: #d10000;
+  --highlight-color: #d2d2d3;
 }
 
 * {

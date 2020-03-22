@@ -1,5 +1,5 @@
 .selected-item {
-    background-color: var(--happy-color);
+    background-color: var(--highlight-color);
 }
 
 .list-container {
