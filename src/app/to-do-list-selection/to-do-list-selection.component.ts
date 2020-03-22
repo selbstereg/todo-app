@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { NamedEntity } from '../to-do-list/model/named-entity.model';
 import { PLACEHOLDER_ADD_NEW_TO_DO_LIST } from '../common/constants';
 import { CrudClient } from '../common/services/crud-client.service';
@@ -17,9 +16,7 @@ export class ToDoListSelectionComponent implements OnInit {
   readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO_LIST;
   toDoLists: NamedEntity[];
 
-  // TODO: Remove httpClient and clean up class in general.
-  constructor(private httpClient: HttpClient,
-    private crudClient: CrudClient) {
+  constructor(private crudClient: CrudClient) {
   }
   
   ngOnInit(): void {
