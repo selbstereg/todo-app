@@ -14,8 +14,8 @@ export class FavouriteEinkaufItems {
         'Brotaufstrich',
         'Käse',
         'Milch',
-        'Veganer Brotaufstrich',
-        'Wasser',
+        'Olivenöl',
+        'Veganer Brotaufstrich'
     ];
     selectedItems: string[] = [];
 
