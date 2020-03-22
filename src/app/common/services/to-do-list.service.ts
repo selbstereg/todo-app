@@ -16,20 +16,6 @@ export class ApiClient {
     ) {
     }
 
-    // READ
-    public fetchToDoLists(): Observable<NamedEntity[]> {
-        const request = () => this.httpClient.get(TO_DO_LISTS_ENDPOINT_URL);
-
-        return this.sendRequest(request) as Observable<NamedEntity[]>;
-    }
-
-    public fetchToDos(toDoListId: number): Observable<ToDo[]> {
-        const url: string = `${TO_DO_LISTS_ENDPOINT_URL}${toDoListId}/to-dos`;
-        const request = () => this.httpClient.get(url);
-
-        return this.sendRequest(request) as Observable<ToDo[]>;
-    }
-
     // CREATE
     public addToDoList(listName: string): Observable<NamedEntity> {
         const request = () => this.httpClient.post(TO_DO_LISTS_ENDPOINT_URL, listName);
@@ -44,7 +30,28 @@ export class ApiClient {
         return this.sendRequest(request) as Observable<ToDo>;
     }
 
+    // READ
+    public fetchToDoLists(): Observable<NamedEntity[]> {
+        const request = () => this.httpClient.get(TO_DO_LISTS_ENDPOINT_URL);
+
+        return this.sendRequest(request) as Observable<NamedEntity[]>;
+    }
+
+    public fetchToDos(toDoListId: number): Observable<ToDo[]> {
+        const url: string = `${TO_DO_LISTS_ENDPOINT_URL}${toDoListId}/to-dos`;
+        const request = () => this.httpClient.get(url);
+
+        return this.sendRequest(request) as Observable<ToDo[]>;
+    }
+
     // DELETE
+    public deleteToDoList(toDoListId: number): Observable<NamedEntity> {
+        const url: string = `${TO_DO_LISTS_ENDPOINT_URL}${toDoListId}`;
+        const request = () => this.httpClient.delete(url);
+
+        return this.sendRequest(request) as Observable<NamedEntity>;
+    }
+
     public deleteToDo(toDoListId: number, toDoId: number): Observable<ToDo> {
         const url: string = `${TO_DO_LISTS_ENDPOINT_URL}${toDoListId}/to-dos/${toDoId}`;
         const request = () => this.httpClient.delete(url);
@@ -52,6 +59,7 @@ export class ApiClient {
         return this.sendRequest(request) as Observable<ToDo>;
     }
 
+    // private functions
     private sendRequest(request: () => Observable<Object>) {
         this.showSpinner();
 
