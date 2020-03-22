@@ -25,7 +25,9 @@ export class SpinnerOverlayService {
     }
 
     showSpinner() {
-        this.spinnerOverlayRef.attach(new ComponentPortal(MatSpinner))
+        if (!this.spinnerOverlayRef.hasAttached()) {
+            this.spinnerOverlayRef.attach(new ComponentPortal(MatSpinner))
+        }
     }
 
     hideSpinner() {
