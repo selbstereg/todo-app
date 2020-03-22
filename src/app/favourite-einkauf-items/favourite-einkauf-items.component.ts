@@ -42,4 +42,8 @@ export class FavouriteEinkaufItems {
         this.dialogRef.close(this.selectedItems.sort());
     }
 
+    onCancel(): void {
+        this.dialogRef.close([]);
+    }
+
 }
