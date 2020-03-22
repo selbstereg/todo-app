@@ -51,15 +51,11 @@ export class ToDoListComponent implements OnInit, OnChanges {
   }
 
   openFavouriteEinkaufItemsDialog(): void {
-    this.dialogService.open(FavouriteEinkaufItems).afterClosed().subscribe(
-      (selectedItems: string[]) => {
-        console.log(selectedItems);
-        selectedItems.forEach(item => {
-          this.addToDo(item);
-        })
-      }
-    );
-
+    this.dialogService.open(FavouriteEinkaufItems)
+      .afterClosed()
+      .subscribe(
+        (selectedItems: string[]) => selectedItems.forEach(this.addToDo)
+      );
   }
 
   private fetchToDos(): void {
