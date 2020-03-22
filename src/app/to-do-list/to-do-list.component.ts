@@ -26,6 +26,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
     private crudClient: CrudClient,
     private dialogService: MatDialog
   ) {
+    this.addToDo = this.addToDo.bind(this);
   }
 
   ngOnInit(): void {
