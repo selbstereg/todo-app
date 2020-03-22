@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NamedEntity } from '../to-do-list/model/named-entity.model';
-import { environment } from 'src/environments/environment';
 import { take } from 'rxjs/operators';
 import { TO_DO_LISTS_ENDPOINT_URL, PLACEHOLDER_ADD_NEW_TO_DO_LIST } from '../common/constants';
+import { ToDoListService } from '../common/services/to-do-list.service';
 
 
 @Component({
@@ -18,7 +18,9 @@ export class ToDoListSelectionComponent implements OnInit {
   readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO_LIST;
   toDoLists: NamedEntity[];
 
-  constructor(private httpClient: HttpClient) {
+  // TODO: Remove httpClient and clean up class in general.
+  constructor(private httpClient: HttpClient,
+    private toDoListService: ToDoListService) {
   }
   
   ngOnInit(): void {
@@ -26,9 +28,7 @@ export class ToDoListSelectionComponent implements OnInit {
   }
 
   fetchToDoLists() {
-    this.httpClient.get(TO_DO_LISTS_ENDPOINT_URL).pipe(
-      take(1)
-    ).subscribe((body: NamedEntity[]) => this.toDoLists = body);
+    this.toDoListService.fetchToDoLists().subscribe((toDoLists: NamedEntity[]) => this.toDoLists = toDoLists);
   }
 
   onSelect(toDoList: NamedEntity) {
