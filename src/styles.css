@@ -1,8 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+:root {
+  --background-color: #f1f1f1;
+  --secondary-background-color: #ffffff;
+  --text-color: black;
+  --secondary-text-color: #455454;
+  --happy-color: #d2d2d3;
+  --danger-color: #d10000;
+}
+
 * {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: var(--text-color);
 }
 
 .box-item {

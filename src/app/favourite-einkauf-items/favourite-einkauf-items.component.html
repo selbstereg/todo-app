@@ -1,12 +1,17 @@
 <p>Wähle die gewünschten Artikel aus und klicke auf "Hinzufügen":</p>
-<div
-    class="box-item"
-    (click)="onClickItem(item)"
-    [ngClass]="styleSelectedItems(item)"
-    *ngFor="let item of items"
->
-    {{item}}
+<div class="list-container">
+    <div
+        class="box-item"
+        (click)="onClickItem(item)"
+        [ngClass]="styleSelectedItems(item)"
+        *ngFor="let item of items"
+    >
+        {{item}}
+    </div>
 </div>
-<button (click)="onAddItems()">
+<button
+    class="float-right"
+    (click)="onAddItems()"
+>
     Hinzufügen
 </button>
