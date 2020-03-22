@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NamedEntity } from '../to-do-list/model/named-entity.model';
 import { PLACEHOLDER_ADD_NEW_TO_DO_LIST } from '../common/constants';
 import { CrudClient } from '../common/services/crud-client.service';
+import { MatDialog } from '@angular/material';
+import { DeleteDialogComponent } from '../common/delete-dialog/delete-dialog.component';
 
 
 @Component({
@@ -16,7 +18,11 @@ export class ToDoListSelectionComponent implements OnInit {
   readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO_LIST;
   toDoLists: NamedEntity[];
 
-  constructor(private crudClient: CrudClient) {
+  constructor(
+    private crudClient: CrudClient,
+    private dialogService: MatDialog
+  ) {
+    this.deleteToDoList = this.deleteToDoList.bind(this);
   }
   
   ngOnInit(): void {
@@ -36,7 +42,18 @@ export class ToDoListSelectionComponent implements OnInit {
   }
 
   // TODO: Add error toast, if list or to do can't be found
-  deleteToDoList(toDoList: NamedEntity) {
+  onClickDeleteButton(toDoList: NamedEntity) {
+    this.dialogService.open(DeleteDialogComponent, { data: { text: "asdf"} })
+      .afterClosed()
+      .subscribe(confirmed => {
+          if (confirmed) {
+            this.deleteToDoList(toDoList);
+          }
+        }
+      )
+  }
+
+  private deleteToDoList(toDoList: NamedEntity) {
     this.crudClient.deleteToDoList(toDoList.id).subscribe(() => this.fetchToDoLists());
   }
 }
