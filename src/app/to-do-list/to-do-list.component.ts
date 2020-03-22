@@ -52,12 +52,12 @@ export class ToDoListComponent implements OnInit, OnChanges {
   }
 
   addToDo(toDoName: string): void {
-    const toDo: ToDo = { name: toDoName, priority: this.toDos.length };
+    const toDo: ToDo = { name: toDoName, priority: this.toDos.length, id: null };
     this.toDoListService.addToDo(this.selectedToDoList.id, toDo).subscribe(() => this.fetchToDos());
   }
 
-  deleteToDoItem(itemToDelete: NamedEntity): void {
-    this.toDoListService.deleteToDo(this.selectedToDoList.id, itemToDelete.id).subscribe(() => this.fetchToDos());
+  deleteToDo(toDo: ToDo): void {
+    this.toDoListService.deleteToDo(this.selectedToDoList.id, toDo.id).subscribe(() => this.fetchToDos());
   }
 
   private selectedToDoListChanged(changes: SimpleChanges) {
