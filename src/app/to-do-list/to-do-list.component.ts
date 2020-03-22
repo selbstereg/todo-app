@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { NamedEntity } from './model/named-entity.model';
 import { TO_DO_LISTS_ENDPOINT_URL, PLACEHOLDER_ADD_NEW_TO_DO } from '../common/constants';
 import { ToDo } from './model/to-do.model';
+import { ToDoListService } from '../common/services/to-do-list.service';
 
 @Component({
   selector: 'to-do-list',
@@ -18,9 +19,10 @@ export class ToDoListComponent implements OnInit, OnChanges {
 
   readonly TO_DOS_ENDPOINT_URL = environment.backendUrl + '/api/todos';
   readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO;
-  toDos = [];
+  toDos: ToDo[] = [];
   
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+    private toDoListService: ToDoListService) {
   }
 
   ngOnInit(): void {
@@ -42,10 +44,13 @@ export class ToDoListComponent implements OnInit, OnChanges {
   }
 
   private fetchToDos(): void {
-    const url: string = TO_DO_LISTS_ENDPOINT_URL + this.selectedToDoList.id + '/to-dos'
-    this.httpClient.get(url).pipe(
-      take(1)
-    ).subscribe((body: string[]) => this.toDos = body.reverse());
+    console.log("fetching todos");
+    this.toDoListService.fetchToDos(this.selectedToDoList.id).subscribe(
+      (toDos: ToDo[]) => {
+        this.toDos = toDos.reverse() // TODO: make the BE deliver the to dos in reverse order
+        console.log("received todos");
+      }
+    );
   }
 
   addToDo(toDoName: string): void {

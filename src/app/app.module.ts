@@ -16,7 +16,8 @@ import { StopClickPropagation } from './common/stop-click-propagation';
 import { DeleteButtonComponent } from './common/delete-button/delete-button.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSpinner } from '@angular/material';
-import { SpinnerOverlayService } from './common/spinner-overlay/spinner-overlay.service';
+import { SpinnerOverlayService } from './common/services/spinner-overlay.service';
+import { ToDoListService } from './common/services/to-do-list.service';
 import { OverlayModule } from '@angular/cdk/overlay'
 
 @NgModule({
@@ -40,7 +41,13 @@ import { OverlayModule } from '@angular/cdk/overlay'
     MatProgressSpinnerModule,
     OverlayModule
   ],
-  providers: [SpinnerOverlayService],
-  bootstrap: [AppComponent, MatSpinner]
+  providers: [
+    SpinnerOverlayService,
+    ToDoListService
+  ],
+  bootstrap: [
+    AppComponent,
+    MatSpinner
+  ]
 })
 export class AppModule { }
