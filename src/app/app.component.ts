@@ -4,6 +4,7 @@ import { NamedEntity } from './to-do-list/model/named-entity.model';
 import { HttpClient } from '@angular/common/http';
 import { TO_DO_LISTS_ENDPOINT_URL } from './common/constants';
 import { take } from 'rxjs/operators';
+import { SpinnerOverlayService } from './common/spinner-overlay/spinner-overlay.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,11 @@ export class AppComponent implements OnInit {
   sideNavOpened = false;
   listTitle = '';
   
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private spinnerOverlayService: SpinnerOverlayService) {
+      this.spinnerOverlayService.showSpinner();
+    }
 
   ngOnInit(): void {
     this.httpClient.get(TO_DO_LISTS_ENDPOINT_URL).pipe(
