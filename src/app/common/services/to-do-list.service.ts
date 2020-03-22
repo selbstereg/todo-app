@@ -18,7 +18,7 @@ export class ToDoListService {
     public fetchToDos(toDoListId: number): Observable<ToDo[]> {
         const url: string = `${TO_DO_LISTS_ENDPOINT_URL}${toDoListId}/to-dos`;
 
-        this.spinnerOverlayService.showSpinner();
+        this.showSpinner();
         const toDoLists$ = (this.httpClient.get(url).pipe(
             take(1),
             tap(this.hideSpinner)
@@ -30,7 +30,7 @@ export class ToDoListService {
     public addToDo(toDoListId: number, toDo: ToDo): Observable<ToDo> {
         const url: string = `${TO_DO_LISTS_ENDPOINT_URL}${toDoListId}`;
 
-        this.spinnerOverlayService.showSpinner();
+        this.showSpinner();
         const toDo$ = this.httpClient.post(url, toDo).pipe(
             take(1),
             tap(this.hideSpinner)
@@ -39,6 +39,19 @@ export class ToDoListService {
         return toDo$;
     }
 
+    public deleteToDo(toDoListId: number, toDoId: number): Observable<ToDo> {
+        const url: string = `${TO_DO_LISTS_ENDPOINT_URL}${toDoListId}/to-dos/${toDoId}`;
+
+        this.showSpinner();
+        const toDo$ = this.httpClient.delete(url).pipe(
+            take(1),
+            tap(this.hideSpinner) 
+        ) as Observable<ToDo>;
+
+        return toDo$;
+    }
+
     private hideSpinner = () => this.spinnerOverlayService.hideSpinner();
+    private showSpinner = () => this.spinnerOverlayService.showSpinner();
 
 }

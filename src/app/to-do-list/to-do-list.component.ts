@@ -44,26 +44,20 @@ export class ToDoListComponent implements OnInit, OnChanges {
   }
 
   private fetchToDos(): void {
-    console.log("fetching todos");
     this.toDoListService.fetchToDos(this.selectedToDoList.id).subscribe(
       (toDos: ToDo[]) => {
         this.toDos = toDos.reverse() // TODO: make the BE deliver the to dos in reverse order
-        console.log("received todos");
       }
     );
   }
 
   addToDo(toDoName: string): void {
-    console.log("Add todo");
     const toDo: ToDo = { name: toDoName, priority: this.toDos.length };
     this.toDoListService.addToDo(this.selectedToDoList.id, toDo).subscribe(() => this.fetchToDos());
   }
 
   deleteToDoItem(itemToDelete: NamedEntity): void {
-    const url: string = TO_DO_LISTS_ENDPOINT_URL + this.selectedToDoList.id + '/to-dos/' + itemToDelete.id;
-    this.httpClient.delete(url).pipe(
-      take(1)
-    ).subscribe(() => this.fetchToDos());
+    this.toDoListService.deleteToDo(this.selectedToDoList.id, itemToDelete.id).subscribe(() => this.fetchToDos());
   }
 
   private selectedToDoListChanged(changes: SimpleChanges) {
