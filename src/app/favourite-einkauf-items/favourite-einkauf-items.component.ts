@@ -14,6 +14,7 @@ export class FavouriteEinkaufItems {
         'Brotaufstrich',
         'Klopapier',
         'Milch',
+        'Shampoo',
         'Zahnpasta'
     ];
     selectedItems: string[] = [];
