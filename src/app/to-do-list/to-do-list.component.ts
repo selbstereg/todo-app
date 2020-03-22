@@ -5,7 +5,10 @@ import { NamedEntity } from './model/named-entity.model';
 import { PLACEHOLDER_ADD_NEW_TO_DO } from '../common/constants';
 import { ToDo } from './model/to-do.model';
 import { CrudClient } from '../common/services/crud-client.service';
+import { MatDialog } from '@angular/material';
+import { FavouriteEinkaufItems } from '../favourite-einkauf-items/favourite-einkauf-items.component';
 
+// TODO: This component does too many things. It should be split up.
 @Component({
   selector: 'to-do-list',
   templateUrl: './to-do-list.component.html',
@@ -19,7 +22,10 @@ export class ToDoListComponent implements OnInit, OnChanges {
   readonly faHeart = faHeart;
   toDos: ToDo[] = [];
   
-  constructor(private crudClient: CrudClient) {
+  constructor(
+    private crudClient: CrudClient,
+    private dialogService: MatDialog
+  ) {
   }
 
   ngOnInit(): void {
@@ -36,12 +42,24 @@ export class ToDoListComponent implements OnInit, OnChanges {
     this.fetchToDos();
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.toDos, event.previousIndex, event.currentIndex);
   }
 
-  toDoListIsEinkaufsliste() {
+  toDoListIsEinkaufsliste(): boolean {
     return this.selectedToDoList.name.toUpperCase().includes('EINKAUF');
+  }
+
+  openFavouriteEinkaufItemsDialog(): void {
+    this.dialogService.open(FavouriteEinkaufItems).afterClosed().subscribe(
+      (selectedItems: string[]) => {
+        console.log(selectedItems);
+        selectedItems.forEach(item => {
+          this.addToDo(item);
+        })
+      }
+    );
+
   }
 
   private fetchToDos(): void {

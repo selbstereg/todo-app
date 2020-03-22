@@ -15,10 +15,11 @@ import { ItemAdderComponent } from './common/item-adder/item-adder.component';
 import { StopClickPropagation } from './common/stop-click-propagation';
 import { DeleteButtonComponent } from './common/delete-button/delete-button.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSpinner } from '@angular/material';
+import { MatSpinner, MatDialogModule } from '@angular/material';
 import { SpinnerOverlayService } from './common/services/spinner-overlay.service';
 import { CrudClient } from './common/services/crud-client.service';
 import { OverlayModule } from '@angular/cdk/overlay'
+import { FavouriteEinkaufItems } from './favourite-einkauf-items/favourite-einkauf-items.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { OverlayModule } from '@angular/cdk/overlay'
     ToDoListSelectionComponent,
     ItemAdderComponent,
     StopClickPropagation,
-    DeleteButtonComponent
+    DeleteButtonComponent,
+    FavouriteEinkaufItems
   ],
   imports: [
     DragDropModule,
@@ -39,6 +41,7 @@ import { OverlayModule } from '@angular/cdk/overlay'
     BrowserAnimationsModule,
     MatSidenavModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
     OverlayModule
   ],
   providers: [
@@ -47,7 +50,8 @@ import { OverlayModule } from '@angular/cdk/overlay'
   ],
   bootstrap: [
     AppComponent,
-    MatSpinner
+    MatSpinner,
+    FavouriteEinkaufItems
   ]
 })
 export class AppModule { }

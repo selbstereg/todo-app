@@ -4,7 +4,11 @@
         <button (click)="onRefresh()" class="float-right">
             Aktualisieren
         </button>
-        <button *ngIf="toDoListIsEinkaufsliste()" class="float-right">
+        <button
+            *ngIf="toDoListIsEinkaufsliste()"
+            class="float-right"
+            (click)="openFavouriteEinkaufItemsDialog()"
+        >
             <fa-icon [icon]="faHeart"></fa-icon>
         </button>
     </p>
