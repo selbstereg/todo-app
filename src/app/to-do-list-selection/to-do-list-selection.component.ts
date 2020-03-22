@@ -1,9 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NamedEntity } from '../to-do-list/model/named-entity.model';
-import { take } from 'rxjs/operators';
-import { TO_DO_LISTS_ENDPOINT_URL, PLACEHOLDER_ADD_NEW_TO_DO_LIST } from '../common/constants';
-import { ApiClient } from '../common/services/to-do-list.service';
+import { PLACEHOLDER_ADD_NEW_TO_DO_LIST } from '../common/constants';
+import { CrudClient } from '../common/services/crud-client.service';
 
 
 @Component({
@@ -20,7 +19,7 @@ export class ToDoListSelectionComponent implements OnInit {
 
   // TODO: Remove httpClient and clean up class in general.
   constructor(private httpClient: HttpClient,
-    private apiClient: ApiClient) {
+    private crudClient: CrudClient) {
   }
   
   ngOnInit(): void {
@@ -28,7 +27,7 @@ export class ToDoListSelectionComponent implements OnInit {
   }
 
   fetchToDoLists() {
-    this.apiClient.fetchToDoLists().subscribe((toDoLists: NamedEntity[]) => this.toDoLists = toDoLists);
+    this.crudClient.fetchToDoLists().subscribe((toDoLists: NamedEntity[]) => this.toDoLists = toDoLists);
   }
 
   onSelect(toDoList: NamedEntity) {
@@ -36,11 +35,11 @@ export class ToDoListSelectionComponent implements OnInit {
   }
 
   onAddToDoList(listName: string) {
-    this.apiClient.addToDoList(listName).subscribe((body: NamedEntity) => this.selectToDoList.emit(body));
+    this.crudClient.addToDoList(listName).subscribe((body: NamedEntity) => this.selectToDoList.emit(body));
   }
 
   // TODO: Add error toast, if list or to do can't be found
   deleteToDoList(toDoList: NamedEntity) {
-    this.apiClient.deleteToDoList(toDoList.id).subscribe(() => this.fetchToDoLists());
+    this.crudClient.deleteToDoList(toDoList.id).subscribe(() => this.fetchToDoLists());
   }
 }
