@@ -20,7 +20,7 @@ import { SpinnerOverlayService } from './common/services/spinner-overlay.service
 import { CrudClient } from './common/services/crud-client.service';
 import { OverlayModule } from '@angular/cdk/overlay'
 import { FavouriteEinkaufItems } from './favourite-einkauf-items/favourite-einkauf-items.component';
-import { DeleteDialogComponent } from './common/delete-dialog/delete-dialog.component';
+import { ConfirmationDialogComponent } from './common/delete-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { DeleteDialogComponent } from './common/delete-dialog/delete-dialog.comp
     StopClickPropagation,
     DeleteButtonComponent,
     FavouriteEinkaufItems,
-    DeleteDialogComponent
+    ConfirmationDialogComponent
   ],
   imports: [
     DragDropModule,
@@ -54,7 +54,7 @@ import { DeleteDialogComponent } from './common/delete-dialog/delete-dialog.comp
     AppComponent,
     MatSpinner,
     FavouriteEinkaufItems,
-    DeleteDialogComponent
+    ConfirmationDialogComponent
   ]
 })
 export class AppModule { }
