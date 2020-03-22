@@ -13,9 +13,10 @@ export class FavouriteEinkaufItems {
         'Brot',
         'Brotaufstrich',
         'Käse',
+        'Klopapier',
         'Milch',
-        'Olivenöl',
-        'Veganer Brotaufstrich'
+        'Veganer Brotaufstrich',
+        'Zahnpasta'
     ];
     selectedItems: string[] = [];
 
