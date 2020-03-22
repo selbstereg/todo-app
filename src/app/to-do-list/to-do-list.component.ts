@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { NamedEntity } from './model/named-entity.model';
 import { PLACEHOLDER_ADD_NEW_TO_DO } from '../common/constants';
 import { ToDo } from './model/to-do.model';
@@ -15,6 +16,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
   @Input() selectedToDoList: NamedEntity;
 
   readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO;
+  readonly faHeart = faHeart;
   toDos: ToDo[] = [];
   
   constructor(private crudClient: CrudClient) {
@@ -36,6 +38,10 @@ export class ToDoListComponent implements OnInit, OnChanges {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.toDos, event.previousIndex, event.currentIndex);
+  }
+
+  toDoListIsEinkaufsliste() {
+    return this.selectedToDoList.name.toUpperCase().includes('EINKAUF');
   }
 
   private fetchToDos(): void {
