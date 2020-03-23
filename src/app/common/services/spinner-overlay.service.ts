@@ -10,7 +10,7 @@ import { DebounceTimer } from '../utils/debounce-timer'
 export class SpinnerOverlayService {
     private spinnerOverlayRef: OverlayRef = this.cdkSpinnerCreate();
     private jobTracker: JobTracker = new JobTracker();
-    private debounceTimer: DebounceTimer = new DebounceTimer();
+    private debounceTimer: DebounceTimer = new DebounceTimer(50);
 
     constructor(private overlay: Overlay) {
     }
