@@ -13,10 +13,10 @@ export class SpinnerOverlayService {
 
     private cdkSpinnerCreate() {
         const positionStrategy = this.overlay
-                                        .position()
-                                        .global()
-                                        .centerHorizontally()
-                                        .centerVertically()
+            .position()
+            .global()
+            .centerHorizontally()
+            .centerVertically()
         return this.overlay.create({
             hasBackdrop: true,
             backdropClass: 'dark-backdrop',
@@ -24,10 +24,17 @@ export class SpinnerOverlayService {
         });
     }
 
+    start(): number {
+        this.showSpinner();
+        return null;
+    }
+
+    stop(jobId: number) {
+        this.hideSpinner();
+    }
+
     showSpinner() {
-        if (!this.spinnerOverlayRef.hasAttached()) {
-            this.spinnerOverlayRef.attach(new ComponentPortal(MatSpinner))
-        }
+        this.spinnerOverlayRef.attach(new ComponentPortal(MatSpinner))
     }
 
     hideSpinner() {

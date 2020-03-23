@@ -61,15 +61,15 @@ export class CrudClient {
 
     // private functions
     private sendRequest(request: () => Observable<Object>) {
-        this.showSpinner();
+        const jobId: number = this.startSpinner();
 
         return request().pipe(
             take(1),
-            tap(this.hideSpinner)
+            tap(_ => this.stopSpinner(jobId))
         );
     }
 
-    private hideSpinner = () => this.spinnerOverlayService.hideSpinner();
-    private showSpinner = () => this.spinnerOverlayService.showSpinner();
+    private stopSpinner = (jobId: number) => this.spinnerOverlayService.stop(jobId);
+    private startSpinner = () => this.spinnerOverlayService.start();
 
 }
