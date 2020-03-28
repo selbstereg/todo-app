@@ -101,6 +101,9 @@ export class ToDoListComponent implements OnInit, OnChanges {
 
   calcHighestPrioPlusOne(): number {
     const priorities: number[] = this.toDos.map(toDo => toDo.priority);
+    if (!priorities.length) {
+      return 0;
+    }
     return Math.max(...priorities) + 1;
   }
 
