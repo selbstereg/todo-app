@@ -1,9 +1,9 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { NamedEntity } from './to-do-list/model/named-entity.model';
-import { HttpClient } from '@angular/common/http';
 import { TO_DO_LISTS_ENDPOINT_URL } from './common/constants';
 import { take } from 'rxjs/operators';
+import { CrudClient } from './common/services/crud-client.service';
 
 @Component({
   selector: 'app-root',
@@ -16,13 +16,13 @@ export class AppComponent implements OnInit {
   sideNavOpened = false;
   listTitle = '';
   
-  constructor(private httpClient: HttpClient) {
+  constructor(private crudClient: CrudClient) {
   }
 
   ngOnInit(): void {
-    this.httpClient.get(TO_DO_LISTS_ENDPOINT_URL).pipe(
-      take(1)
-    ).subscribe((body: NamedEntity[]) => this.setSelectedToDoList(body[0]));
+    this.crudClient.fetchToDoLists().subscribe(
+      (toDoLists: NamedEntity[]) => this.setSelectedToDoList(toDoLists[0])
+    );
   }
 
   openSideNav() {
