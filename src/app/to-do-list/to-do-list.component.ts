@@ -7,6 +7,7 @@ import { ToDo } from './model/to-do.model';
 import { CrudClient } from '../common/services/crud-client.service';
 import { MatDialog } from '@angular/material';
 import { FavouriteEinkaufItems } from '../favourite-einkauf-items/favourite-einkauf-items.component';
+import { filter } from 'rxjs/operators';
 
 // TODO: This component does too many things. It should be split up.
 @Component({
@@ -73,6 +74,9 @@ export class ToDoListComponent implements OnInit, OnChanges {
   openFavouriteEinkaufItemsDialog(): void {
     this.dialogService.open(FavouriteEinkaufItems)
       .afterClosed()
+      .pipe(
+        filter(val => !!val)
+      )
       .subscribe(
         (selectedItems: string[]) => selectedItems.forEach(this.addToDo)
       );
