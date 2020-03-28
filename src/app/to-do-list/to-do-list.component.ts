@@ -91,11 +91,17 @@ export class ToDoListComponent implements OnInit, OnChanges {
   }
 
   addToDo(toDoName: string): void {
-    const toDo: ToDo = { name: toDoName, priority: this.toDos.length, id: null };
+    const toDo: ToDo = { name: toDoName, priority: this.calcHighestPrioPlusOne(), id: null };
+    this.toDos.push(toDo);
     this.crudClient.addToDo(this.selectedToDoList.id, toDo).subscribe(
       this.fetchToDos,
       this.fetchToDos
     );
+  }
+
+  calcHighestPrioPlusOne(): number {
+    const priorities: number[] = this.toDos.map(toDo => toDo.priority);
+    return Math.max(...priorities) + 1;
   }
 
   deleteToDo(toDo: ToDo): void {
