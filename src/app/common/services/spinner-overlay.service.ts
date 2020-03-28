@@ -4,13 +4,14 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { MatSpinner } from '@angular/material';
 import { JobTracker } from '../utils/job-tracker';
 import { DebounceTimer } from '../utils/debounce-timer'
+import { SPINNER_DEBOUNCE_TIME_IN_MILLIS } from '../constants';
 
 
 @Injectable()
 export class SpinnerOverlayService {
     private spinnerOverlayRef: OverlayRef = this.cdkSpinnerCreate();
     private jobTracker: JobTracker = new JobTracker();
-    private debounceTimer: DebounceTimer = new DebounceTimer(50);
+    private debounceTimer: DebounceTimer = new DebounceTimer(SPINNER_DEBOUNCE_TIME_IN_MILLIS);
 
     constructor(private overlay: Overlay) {
     }

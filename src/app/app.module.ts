@@ -21,6 +21,8 @@ import { CrudClient } from './common/services/crud-client.service';
 import { OverlayModule } from '@angular/cdk/overlay'
 import { FavouriteEinkaufItems } from './favourite-einkauf-items/favourite-einkauf-items.component';
 import { ConfirmationDialogComponent } from './common/confirmation-dialog/confirmation-dialog.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ErrorHandler } from './common/services/error-handler.service';
 
 @NgModule({
   declarations: [
@@ -44,11 +46,13 @@ import { ConfirmationDialogComponent } from './common/confirmation-dialog/confir
     MatSidenavModule,
     MatProgressSpinnerModule,
     MatDialogModule,
-    OverlayModule
+    OverlayModule,
+    MatSnackBarModule
   ],
   providers: [
     SpinnerOverlayService,
-    CrudClient
+    CrudClient,
+    ErrorHandler
   ],
   bootstrap: [
     AppComponent,

@@ -6,13 +6,15 @@ import { ToDo } from 'src/app/to-do-list/model/to-do.model';
 import { take, tap, catchError } from 'rxjs/operators';
 import { SpinnerOverlayService } from './spinner-overlay.service';
 import { NamedEntity } from 'src/app/to-do-list/model/named-entity.model';
+import { ErrorHandler } from './error-handler.service';
 
 
 @Injectable()
 export class CrudClient {
     constructor(
         private httpClient: HttpClient,
-        private spinnerOverlayService: SpinnerOverlayService
+        private spinnerOverlayService: SpinnerOverlayService,
+        private errorHandler: ErrorHandler
     ) {
     }
 
@@ -66,6 +68,7 @@ export class CrudClient {
         return request().pipe(
             catchError(err => {
                 this.stopSpinner(jobId);
+                this.errorHandler.display(err);
                 return throwError(err);
             }),
             take(1),
