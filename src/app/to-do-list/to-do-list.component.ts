@@ -28,6 +28,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
     private dialogService: MatDialog
   ) {
     this.addToDo = this.addToDo.bind(this);
+    this.fetchToDos = this.fetchToDos.bind(this)
   }
 
   ngOnInit(): void {
@@ -80,18 +81,24 @@ export class ToDoListComponent implements OnInit, OnChanges {
   private fetchToDos(): void {
     this.crudClient.fetchToDos(this.selectedToDoList.id).subscribe(
       (toDos: ToDo[]) => {
-        this.toDos = toDos.reverse() // TODO: make the BE deliver the to dos in reverse order
+        this.toDos = toDos.reverse()
       }
     );
   }
 
   addToDo(toDoName: string): void {
     const toDo: ToDo = { name: toDoName, priority: this.toDos.length, id: null };
-    this.crudClient.addToDo(this.selectedToDoList.id, toDo).subscribe(() => this.fetchToDos());
+    this.crudClient.addToDo(this.selectedToDoList.id, toDo).subscribe(
+      this.fetchToDos,
+      this.fetchToDos
+    );
   }
 
   deleteToDo(toDo: ToDo): void {
-    this.crudClient.deleteToDo(this.selectedToDoList.id, toDo.id).subscribe(() => this.fetchToDos());
+    this.crudClient.deleteToDo(this.selectedToDoList.id, toDo.id).subscribe(
+      this.fetchToDos,
+      this.fetchToDos
+    );
   }
 
   private selectedToDoListChanged(changes: SimpleChanges) {

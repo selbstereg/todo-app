@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { TO_DO_LISTS_ENDPOINT_URL } from '../constants';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { ToDo } from 'src/app/to-do-list/model/to-do.model';
-import { take, tap } from 'rxjs/operators';
+import { take, tap, catchError } from 'rxjs/operators';
 import { SpinnerOverlayService } from './spinner-overlay.service';
 import { NamedEntity } from 'src/app/to-do-list/model/named-entity.model';
 
@@ -64,6 +64,10 @@ export class CrudClient {
         const jobId: number = this.startSpinner();
 
         return request().pipe(
+            catchError(err => {
+                this.stopSpinner(jobId);
+                return throwError(err);
+            }),
             take(1),
             tap(_ => this.stopSpinner(jobId))
         );

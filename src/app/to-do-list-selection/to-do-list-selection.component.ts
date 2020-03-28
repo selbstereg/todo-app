@@ -23,6 +23,7 @@ export class ToDoListSelectionComponent implements OnInit {
     private crudClient: CrudClient,
     private dialogService: MatDialog
   ) {
+    this.fetchToDoLists = this.fetchToDoLists.bind(this);
     this.deleteToDoList = this.deleteToDoList.bind(this);
   }
   
@@ -31,7 +32,9 @@ export class ToDoListSelectionComponent implements OnInit {
   }
 
   fetchToDoLists() {
-    this.crudClient.fetchToDoLists().subscribe((toDoLists: NamedEntity[]) => this.toDoLists = toDoLists);
+    this.crudClient.fetchToDoLists().subscribe(
+      (toDoLists: NamedEntity[]) => this.toDoLists = toDoLists
+    );
   }
 
   onSelect(toDoList: NamedEntity) {
@@ -39,7 +42,9 @@ export class ToDoListSelectionComponent implements OnInit {
   }
 
   onAddToDoList(listName: string) {
-    this.crudClient.addToDoList(listName).subscribe((body: NamedEntity) => this.selectToDoList.emit(body));
+    this.crudClient.addToDoList(listName).subscribe(
+      (body: NamedEntity) => this.selectToDoList.emit(body)
+    );
   }
 
   // TODO: Add error toast, if list or to do can't be found
@@ -55,7 +60,10 @@ export class ToDoListSelectionComponent implements OnInit {
   }
 
   private deleteToDoList(toDoList: NamedEntity) {
-    this.crudClient.deleteToDoList(toDoList.id).subscribe(() => this.fetchToDoLists());
+    this.crudClient.deleteToDoList(toDoList.id).subscribe(
+      this.fetchToDoLists,
+      this.fetchToDoLists
+    );
     if (toDoList.id === this.selectedToDoList.id) {
       this.selectToDoList.emit(this.toDoLists[0]);
     }
