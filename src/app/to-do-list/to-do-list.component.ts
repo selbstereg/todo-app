@@ -21,6 +21,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
   readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO;
   readonly faHeart = faHeart;
   toDos: ToDo[] = [];
+  markedToDos: ToDo[] = [];
   
   constructor(
     private crudClient: CrudClient,
@@ -41,6 +42,23 @@ export class ToDoListComponent implements OnInit, OnChanges {
 
   onRefresh() {
     this.fetchToDos();
+  }
+
+  // TODO: The logic to mark list items is duplicated (here and in favoureite-inkauf-items.component)
+  onClickToDo(clickedToDo: ToDo) {
+    if (this.isMarked(clickedToDo)) {
+      this.markedToDos = this.markedToDos.filter(toDo => toDo !== clickedToDo);
+    } else {
+      this.markedToDos.push(clickedToDo);
+    }
+  }
+
+  isMarked(clickedToDo: ToDo): boolean {
+    return this.markedToDos.includes(clickedToDo);
+  }
+
+  styleMarkedToDos(toDo: ToDo) {
+      return this.isMarked(toDo) ? 'marked-to-do' : '';
   }
 
   drop(event: CdkDragDrop<string[]>): void {

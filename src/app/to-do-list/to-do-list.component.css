@@ -51,3 +51,7 @@
   .drag-drop-view-container {
     width: 75%;
   }
+
+  .marked-to-do {
+    background-color: var(--highlight-color);
+  }

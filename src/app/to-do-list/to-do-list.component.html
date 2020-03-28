@@ -13,7 +13,13 @@
         </button>
     </p>
     <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-        <div class="box-item" *ngFor="let toDo of toDos" cdkDrag>
+        <div
+            *ngFor="let toDo of toDos"
+            class="box-item"
+            [ngClass]="styleMarkedToDos(toDo)"
+            (click)="onClickToDo(toDo)"
+            cdkDrag
+        >
             {{toDo.name}}
             <delete-button (delete)="deleteToDo(toDo)"></delete-button>
         </div>
