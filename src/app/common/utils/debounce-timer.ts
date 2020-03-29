@@ -8,7 +8,7 @@ export class DebounceTimer {
         this.debounceTimeInMilliSeconds = debounceTimeInMilliSeconds;
     }
 
-    public callAferExpiry(callback: () => void): void {
+    public start(callback: () => void): void {
         this.subscription = timer(this.debounceTimeInMilliSeconds).subscribe(
             () => callback()
         );

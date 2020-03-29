@@ -2,12 +2,13 @@ import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core'
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { faHeart } from '@fortawesome/fontawesome-free-regular'
 import { NamedEntity } from './model/named-entity.model';
-import { PLACEHOLDER_ADD_NEW_TO_DO } from '../common/constants';
+import { PLACEHOLDER_ADD_NEW_TO_DO, PRIORIZATION_DEBOUNCE_TIME_IN_MILLIS } from '../common/constants';
 import { ToDo } from './model/to-do.model';
 import { CrudClient } from '../common/services/crud-client.service';
 import { MatDialog } from '@angular/material';
 import { FavouriteEinkaufItems } from '../favourite-einkauf-items/favourite-einkauf-items.component';
 import { filter } from 'rxjs/operators';
+import { DebounceTimer } from '../common/utils/debounce-timer';
 
 // TODO: This component does too many things. It should be split up.
 @Component({
@@ -21,6 +22,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
 
   readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO;
   readonly faHeart = faHeart;
+  priorizationDebounceTimer = new DebounceTimer(PRIORIZATION_DEBOUNCE_TIME_IN_MILLIS);
   toDos: ToDo[] = [];
   markedToDos: ToDo[] = [];
   
@@ -29,7 +31,8 @@ export class ToDoListComponent implements OnInit, OnChanges {
     private dialogService: MatDialog
   ) {
     this.addToDo = this.addToDo.bind(this);
-    this.fetchToDos = this.fetchToDos.bind(this)
+    this.fetchToDos = this.fetchToDos.bind(this);
+    this.submitPriorityOrder = this.submitPriorityOrder.bind(this);
   }
 
   ngOnInit(): void {
@@ -64,7 +67,21 @@ export class ToDoListComponent implements OnInit, OnChanges {
   }
 
   drop(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.toDos, event.previousIndex, event.currentIndex);
+    moveItemInArray(
+      this.toDos,
+      this.mapToReverseOrder(event.previousIndex),
+      this.mapToReverseOrder(event.currentIndex)
+    );
+    this.priorizationDebounceTimer.stop();
+    this.priorizationDebounceTimer.start(this.submitPriorityOrder);
+  }
+
+  mapToReverseOrder(index: number): number {
+    return this.toDos.length - 1 - index;
+  }
+
+  submitPriorityOrder(): void {
+    console.log("Prios: ", this.toDos);
   }
 
   toDoListIsEinkaufsliste(): boolean {

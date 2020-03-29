@@ -28,7 +28,7 @@ export class SpinnerOverlayService {
     stop(jobId: number) {
         this.jobTracker.removeJob(jobId);
         if (this.jobTracker.hasNoJobs()) {
-            this.debounceTimer.callAferExpiry(
+            this.debounceTimer.start(
                 () => this.stopSpinning()
             );
         }
