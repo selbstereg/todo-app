@@ -14,7 +14,7 @@
     </p>
     <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
         <div
-            *ngFor="let toDo of toDos"
+            *ngFor="let toDo of getToDosInReverseOrder()"
             class="box-item"
             [ngClass]="styleMarkedToDos(toDo)"
             (click)="onClickToDo(toDo)"

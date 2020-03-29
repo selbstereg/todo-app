@@ -85,7 +85,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
   private fetchToDos(): void {
     this.crudClient.fetchToDos(this.selectedToDoList.id).subscribe(
       (toDos: ToDo[]) => {
-        this.toDos = toDos.reverse()
+        this.toDos = toDos
       }
     );
   }
@@ -112,6 +112,11 @@ export class ToDoListComponent implements OnInit, OnChanges {
       this.fetchToDos,
       this.fetchToDos
     );
+  }
+
+  getToDosInReverseOrder(): ToDo[] {
+    const toDosCopy = this.toDos.slice();
+    return toDosCopy.reverse();
   }
 
   private selectedToDoListChanged(changes: SimpleChanges) {
