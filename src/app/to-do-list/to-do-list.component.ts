@@ -81,16 +81,18 @@ export class ToDoListComponent implements OnInit, OnChanges {
   }
 
   submitPriorityOrder(): void {
+    const updates: { toDoId: number, priority: number}[] = [];
     this.toDos.forEach(
       (toDo, index) => {
         if (toDo.priority !== index) {
           toDo.priority = index;
-          // TODO: Change crud client, so it is passed multiple updates and handles them with forkJoin
-          this.crudClient.updatePriority(toDo.id, toDo.priority).subscribe(
-            this.fetchToDos
-          );
+          updates.push({ toDoId: toDo.id, priority: toDo.priority });
         }
       }
+    );
+    this.crudClient.updatePriorities(updates).subscribe(
+      this.fetchToDos,
+      this.fetchToDos
     );
   }
 

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { TO_DO_LISTS_ENDPOINT_URL, TO_DOS_ENDPOINT_URL } from '../constants';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, forkJoin } from 'rxjs';
 import { ToDo } from 'src/app/to-do-list/model/to-do.model';
 import { take, tap, catchError } from 'rxjs/operators';
 import { SpinnerOverlayService } from './spinner-overlay.service';
@@ -47,11 +47,15 @@ export class CrudClient {
     }
 
     // UPDATE
-    public updatePriority(toDoId: number, priority: number): Observable<number> {
-        const url: string = `${TO_DOS_ENDPOINT_URL}${toDoId}/priority`
-        const request = () => this.httpClient.put(url, priority);
+    public updatePriorities(updates: { toDoId: number, priority: number}[]): Observable<number[]> {
+        const requests: Observable<number>[] = updates.map(update => {
+            const url: string = `${TO_DOS_ENDPOINT_URL}${update.toDoId}/priority`
+            return this.httpClient.put(url, update.priority) as Observable<number>;
+        })
 
-        return this.sendRequest(request) as Observable<number>;
+        const request: () => Observable<number[]> = () => forkJoin(requests);
+
+        return this.sendRequest(request) as Observable<number[]>;
     }
 
     // DELETE
