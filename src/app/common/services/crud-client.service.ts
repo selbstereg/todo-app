@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { TO_DO_LISTS_ENDPOINT_URL } from '../constants';
+import { TO_DO_LISTS_ENDPOINT_URL, TO_DOS_ENDPOINT_URL } from '../constants';
 import { Observable, throwError } from 'rxjs';
 import { ToDo } from 'src/app/to-do-list/model/to-do.model';
 import { take, tap, catchError } from 'rxjs/operators';
@@ -44,6 +44,14 @@ export class CrudClient {
         const request = () => this.httpClient.get(url);
 
         return this.sendRequest(request) as Observable<ToDo[]>;
+    }
+
+    // UPDATE
+    public updatePriority(toDoId: number, priority: number): Observable<number> {
+        const url: string = `${TO_DOS_ENDPOINT_URL}${toDoId}/priority`
+        const request = () => this.httpClient.put(url, priority);
+
+        return this.sendRequest(request) as Observable<number>;
     }
 
     // DELETE
