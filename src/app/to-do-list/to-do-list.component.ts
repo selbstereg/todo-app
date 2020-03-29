@@ -9,7 +9,6 @@ import { MatDialog } from '@angular/material';
 import { FavouriteEinkaufItems } from '../favourite-einkauf-items/favourite-einkauf-items.component';
 import { filter } from 'rxjs/operators';
 import { DebounceTimer } from '../common/utils/debounce-timer';
-import { Observable, forkJoin } from 'rxjs';
 
 // TODO: This component does too many things. It should be split up.
 @Component({
@@ -81,19 +80,17 @@ export class ToDoListComponent implements OnInit, OnChanges {
     return this.toDos.length - 1 - index;
   }
 
-  // TODO: Fetch to dos after all observables emitted
   submitPriorityOrder(): void {
-    const prioChanges: Observable<number>[] = [];
     this.toDos.forEach(
       (toDo, index) => {
         if (toDo.priority !== index) {
           toDo.priority = index;
-          prioChanges.push(this.crudClient.updatePriority(toDo.id, toDo.priority));
+          // TODO: Change crud client, so it is passed multiple updates and handles them with forkJoin
+          this.crudClient.updatePriority(toDo.id, toDo.priority).subscribe(
+            this.fetchToDos
+          );
         }
       }
-    );
-    forkJoin(prioChanges).subscribe(
-      this.fetchToDos
     );
   }
 
