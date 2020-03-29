@@ -90,10 +90,12 @@ export class ToDoListComponent implements OnInit, OnChanges {
         }
       }
     );
-    this.crudClient.updatePriorities(updates).subscribe(
-      this.fetchToDos,
-      this.fetchToDos
-    );
+    if (updates.length) {
+      this.crudClient.updatePriorities(updates).subscribe(
+        this.fetchToDos,
+        this.fetchToDos
+      );
+    }
   }
 
   toDoListIsEinkaufsliste(): boolean {
