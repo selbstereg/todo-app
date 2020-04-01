@@ -25,8 +25,16 @@ export class ToDoListComponent implements OnInit, OnChanges {
   priorizationDebounceTimer = new DebounceTimer(PRIORIZATION_DEBOUNCE_TIME_IN_MILLIS);
   toDos: ToDo[] = [];
   markedToDos: ToDo[] = [];
-  dragging = false;
+  isDragging = false;
   
+  onMouseDown() {
+    this.isDragging = true;
+  }
+
+  onMouseUp() {
+    this.isDragging =false
+  }
+
   constructor(
     private crudClient: CrudClient,
     private dialogService: MatDialog
@@ -91,7 +99,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
         }
       }
     );
-    if (updates.length) {
+    if (updates.length && !this.isDragging) {
       this.crudClient.updatePriorities(updates).subscribe(
         this.fetchToDos,
         this.fetchToDos
