@@ -76,6 +76,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
   }
 
   drop(event: CdkDragDrop<string[]>): void {
+    this.isDragging = false;
     moveItemInArray(
       this.toDos,
       this.mapToReverseOrder(event.previousIndex),
