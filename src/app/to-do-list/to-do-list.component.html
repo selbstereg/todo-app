@@ -19,7 +19,9 @@
             [ngClass]="styleMarkedToDos(toDo)"
             (click)="onClickToDo(toDo)"
             (mousedown)="onMouseDown()"
+            (touchstart)="onMouseDown()"
             (mouseup)="onMouseUp()"
+            (touched)="onMouseUp()"
             cdkDrag
         >
             {{toDo.name}}
