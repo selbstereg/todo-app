@@ -18,6 +18,8 @@
             class="box-item"
             [ngClass]="styleMarkedToDos(toDo)"
             (click)="onClickToDo(toDo)"
+            (mousedown)="onMouseDown()"
+            (mouseup)="onMouseUp()"
             cdkDrag
         >
             {{toDo.name}}
@@ -25,3 +27,4 @@
         </div>
     </div>
 </div>
+<p *ngIf="dragging">Dragging</p>

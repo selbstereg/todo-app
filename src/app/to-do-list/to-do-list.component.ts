@@ -25,6 +25,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
   priorizationDebounceTimer = new DebounceTimer(PRIORIZATION_DEBOUNCE_TIME_IN_MILLIS);
   toDos: ToDo[] = [];
   markedToDos: ToDo[] = [];
+  dragging = false;
   
   constructor(
     private crudClient: CrudClient,
