@@ -27,14 +27,7 @@ export class ToDoListComponent implements OnInit, OnChanges {
   markedToDos: ToDo[] = [];
   isDragging = false;
   
-  onMouseDown() {
-    this.isDragging = true;
-  }
-
-  onMouseUp() {
-    this.isDragging =false
-  }
-
+  
   constructor(
     private crudClient: CrudClient,
     private dialogService: MatDialog
@@ -52,6 +45,14 @@ export class ToDoListComponent implements OnInit, OnChanges {
     if (this.selectedToDoListChanged(changes)) {
       this.fetchToDos();
     }
+  }
+    
+  onMouseDown() {
+    this.isDragging = true;
+  }
+
+  onMouseUp() {
+    this.isDragging =false
   }
 
   onRefresh() {
