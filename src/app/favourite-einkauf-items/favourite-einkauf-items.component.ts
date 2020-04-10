@@ -9,11 +9,12 @@ import { MatDialogRef } from '@angular/material';
 export class FavouriteEinkaufItems {
     items: string[] = [
         'Äpfel',
+        'Aufbackbrötchen',
         'Bananen',
         'Brot',
         'Brotaufstrich',
-        'Klopapier',
         'Milch',
+        'Pfandflaschen zurückgeben',
         'Shampoo',
         'Zahnpasta'
     ];
