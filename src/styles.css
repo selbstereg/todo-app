@@ -6,7 +6,7 @@
   --background-color: #f1f1f1;
   --secondary-background-color: #ebebeb;
   --text-color: black;
-  --border-color: #b3c2c2;
+  --border-color: #b1bfcc;
   --highlight-color: #d2d2d3;
 }
 
@@ -57,7 +57,7 @@ button + button {
 
 .box-item {
   padding: 10px 10px;
-  border-bottom: solid 1px #ccc;
+  border-bottom: solid 1px var(--border-color);
   color: rgba(0, 0, 0, 0.87);
   display: flex;
   flex-direction: row;

@@ -8,7 +8,7 @@
 .example-list {
   width: 500px;
   max-width: 100%;
-  border: solid 1px #ccc;
+  border: solid 1px var(--border-color);
   min-height: 60px;
   display: block;
   background: white;
