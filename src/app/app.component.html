@@ -3,7 +3,7 @@
         <to-do-list-selection *ngIf="sideNavOpened" [selectedToDoList]="selectedToDoList" (selectToDoList)="onSelectToDoList($event)"></to-do-list-selection>
     </mat-sidenav>
     <mat-sidenav-content>
-        <p>{{ listTitle }}
+        <p class="list-title">{{ listTitle }}
             <button class="float-right" (click)="openSideNav()">
                 <fa-icon [icon]="faBars"></fa-icon>
             </button>
