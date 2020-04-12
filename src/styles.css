@@ -15,7 +15,12 @@
   color: var(--text-color);
 }
 
+html {
+  height: 100%;
+}
+
 body {
+  min-height: 100%;
   margin: 8px;
 }
 
