@@ -3,6 +3,11 @@
         +
     </button>
     <span class="wide-input-span">
-        <input [placeholder]="placeholder" [(ngModel)]="input" class="wide-input" (ngModelChange)="onInputChange($event)">
+        <input
+            [placeholder]="placeholder"
+            [(ngModel)]="input"
+            class="wide-input"
+            (ngModelChange)="onInputChange($event)"
+        >
     </span>
 </div>
