@@ -10,11 +10,10 @@ import { FavouriteEinkaufItems } from '../favourite-einkauf-items/favourite-eink
 import { filter } from 'rxjs/operators';
 import { DebounceTimer } from '../common/utils/debounce-timer';
 
-// TODO: This component does too many things. It should be split up.
 @Component({
-  selector: 'to-do-list',
-  templateUrl: './to-do-list.component.html',
-  styleUrls: ['./to-do-list.component.css']
+  selector: 'to-do-list-page',
+  templateUrl: './to-do-list-page.component.html',
+  styleUrls: ['./to-do-list-page.component.css']
 })
 export class ToDoListPageComponent implements OnInit, OnChanges {
   

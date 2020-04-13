@@ -2,10 +2,10 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { TO_DO_LISTS_ENDPOINT_URL, TO_DOS_ENDPOINT_URL } from '../constants';
 import { Observable, throwError, forkJoin } from 'rxjs';
-import { ToDo } from 'src/app/to-do-list/model/to-do.model';
+import { ToDo } from 'src/app/to-do-list-page/model/to-do.model';
 import { take, tap, catchError } from 'rxjs/operators';
 import { SpinnerOverlayService } from './spinner-overlay.service';
-import { NamedEntity } from 'src/app/to-do-list/model/named-entity.model';
+import { NamedEntity } from 'src/app/to-do-list-page/model/named-entity.model';
 import { ErrorHandler } from './error-handler.service';
 
 

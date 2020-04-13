@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { NamedEntity } from '../to-do-list/model/named-entity.model';
+import { NamedEntity } from '../to-do-list-page/model/named-entity.model';
 import { PLACEHOLDER_ADD_NEW_TO_DO_LIST } from '../common/constants';
 import { CrudClient } from '../common/services/crud-client.service';
 import { MatDialog } from '@angular/material';

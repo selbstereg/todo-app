@@ -1,8 +1,6 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { NamedEntity } from './to-do-list/model/named-entity.model';
-import { TO_DO_LISTS_ENDPOINT_URL } from './common/constants';
-import { take } from 'rxjs/operators';
+import { NamedEntity } from './to-do-list-page/model/named-entity.model';
 import { CrudClient } from './common/services/crud-client.service';
 
 @Component({
