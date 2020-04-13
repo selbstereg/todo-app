@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { DebounceTimer } from 'src/app/common/utils/debounce-timer';
 import { PRIORIZATION_DEBOUNCE_TIME_IN_MILLIS } from 'src/app/common/constants';
@@ -15,10 +15,8 @@ export interface PriorityUpdate {
   templateUrl: './drag-drop-list.component.html',
   styleUrls: ['./drag-drop-list.component.css']
 })
-export class DragDropListComponent /*implements OnInit*/ {
-  
-  // refactor - can the selected to do list id be removed?
-  //@Input() selectedToDoListId: number;
+export class DragDropListComponent {
+
   @Input() toDos: ToDo[] = [];
 
   @Output() priorizationChanged = new EventEmitter<PriorityUpdate[]>();
@@ -32,13 +30,8 @@ export class DragDropListComponent /*implements OnInit*/ {
   constructor(
     private crudClient: CrudClient,
   ) {
-    //this.fetchToDos = this.fetchToDos.bind(this);
     this.submitPriorityOrder = this.submitPriorityOrder.bind(this);
   }
-
-  /*ngOnInit(): void {
-    this.fetchToDos();
-  }*/
     
   onMouseDown() {
     this.isDragging = true;
@@ -91,23 +84,9 @@ export class DragDropListComponent /*implements OnInit*/ {
       }
     );
     if (updates.length && !this.isDragging) {
-      /* refactor - remove this:
-        this.crudClient.updatePriorities(updates).subscribe(
-        this.fetchToDos,
-        this.fetchToDos
-      );*/
       this.priorizationChanged.emit(updates);
     }
   }
-
-  // refactor - is this right here?
-  /*private fetchToDos(): void {
-    this.crudClient.fetchToDos(this.selectedToDoListId).subscribe(
-      (toDos: ToDo[]) => {
-        this.toDos = toDos
-      }
-    );
-  }*/
 
   calcHighestPrioPlusOne(): number {
     const priorities: number[] = this.toDos.map(toDo => toDo.priority);
@@ -119,11 +98,6 @@ export class DragDropListComponent /*implements OnInit*/ {
 
   deleteToDo(toDo: ToDo): void {
     this.toDoDeleted.emit(toDo.id);
-    /* refactor - delete
-      this.crudClient.deleteToDo(this.selectedToDoListId, toDo.id).subscribe(
-      this.fetchToDos,
-      this.fetchToDos
-    );*/
   }
 
   getToDosInReverseOrder(): ToDo[] {

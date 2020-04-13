@@ -34,7 +34,6 @@ export class ToDoListPageComponent implements OnInit, OnChanges {
   ) {
     this.addToDo = this.addToDo.bind(this);
     this.fetchToDos = this.fetchToDos.bind(this);
-    //this.submitPriorityOrder = this.submitPriorityOrder.bind(this);
   }
 
   ngOnInit(): void {
@@ -46,68 +45,11 @@ export class ToDoListPageComponent implements OnInit, OnChanges {
       this.fetchToDos();
     }
   }
-    
-  /*onMouseDown() {
-    this.isDragging = true;
-  }
-
-  onMouseUp() {
-    this.isDragging =false
-  }*/
-
+   
   onRefresh() {
     this.fetchToDos();
   }
 
-  // TODO: The logic to mark list items is duplicated (here and in favoureite-inkauf-items.component)
-  /*onClickToDo(clickedToDo: ToDo) {
-    if (this.isMarked(clickedToDo)) {
-      this.markedToDos = this.markedToDos.filter(toDo => toDo !== clickedToDo);
-    } else {
-      this.markedToDos.push(clickedToDo);
-    }
-  }*/
-
-  /*isMarked(clickedToDo: ToDo): boolean {
-    return this.markedToDos.includes(clickedToDo);
-  }*/
-
-  /*styleMarkedToDos(toDo: ToDo) {
-      return this.isMarked(toDo) ? 'marked-to-do' : '';
-  }*/
-
-  /*drop(event: CdkDragDrop<string[]>): void {
-    this.isDragging = false;
-    moveItemInArray(
-      this.toDos,
-      this.mapToReverseOrder(event.previousIndex),
-      this.mapToReverseOrder(event.currentIndex)
-    );
-    this.priorizationDebounceTimer.stop();
-    this.priorizationDebounceTimer.start(this.submitPriorityOrder);
-  }*/
-
-  /*mapToReverseOrder(index: number): number {
-    return this.toDos.length - 1 - index;
-  }*/
-
-  /*submitPriorityOrder(): void {
-    const updates: { toDoId: number, priority: number}[] = [];
-    this.toDos.forEach(
-      (toDo, index) => {
-        if (toDo.priority !== index) {
-          toDo.priority = index;
-          updates.push({ toDoId: toDo.id, priority: toDo.priority });
-        }
-      }
-    );
-    if (updates.length && !this.isDragging) {
-      this.crudClient.updatePriorities(updates).subscribe(
-        this.fetchToDos,
-        this.fetchToDos
-      );
-    }
-  }*/
   onPriorizationChanged(updates: PriorityUpdate[]): void {
     this.crudClient.updatePriorities(updates).subscribe(
       this.fetchToDos,
@@ -156,18 +98,12 @@ export class ToDoListPageComponent implements OnInit, OnChanges {
     return Math.max(...priorities) + 1;
   }
 
-  /*deleteToDo(toDo: ToDo)*/
   onToDoDeleted(toDoId: number): void {
     this.crudClient.deleteToDo(this.selectedToDoList.id, toDoId).subscribe(
       this.fetchToDos,
       this.fetchToDos
     );
   }
-
-  /*getToDosInReverseOrder(): ToDo[] {
-    const toDosCopy = this.toDos.slice();
-    return toDosCopy.reverse();
-  }*/
 
   private selectedToDoListChanged(changes: SimpleChanges) {
     return changes.selectedToDoList;
