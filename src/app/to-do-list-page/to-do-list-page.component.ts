@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { faHeart } from '@fortawesome/fontawesome-free-regular'
 import { NamedEntity } from './model/named-entity.model';
-import { PLACEHOLDER_ADD_NEW_TO_DO, PRIORIZATION_DEBOUNCE_TIME_IN_MILLIS } from '../common/constants';
+import { PLACEHOLDER_ADD_NEW_TO_DO, PRIORITIZATION_DEBOUNCE_TIME_IN_MILLIS } from '../common/constants';
 import { ToDo } from './model/to-do.model';
 import { CrudClient } from '../common/services/crud-client.service';
 import { MatDialog } from '@angular/material';
@@ -41,21 +41,14 @@ export class ToDoListPageComponent implements OnInit, OnChanges {
       this.fetchToDos();
     }
   }
-   
-  onRefresh() {
-    this.fetchToDos();
-  }
-
-  onPriorizationChanged(updates: PriorityUpdate[]): void {
-    this.crudClient.updatePriorities(updates).subscribe(
-      this.fetchToDos,
-      this.fetchToDos
-    );
-  }
 
   // TODO: This is a hack. There should be to do list subtypes in the data model
   toDoListIsEinkaufsliste(): boolean {
     return this.selectedToDoList.name.toUpperCase().includes('EINKAUF');
+  }
+
+  onRefresh() {
+    this.fetchToDos();
   }
 
   openFavouriteEinkaufItemsDialog(): void {
@@ -86,16 +79,16 @@ export class ToDoListPageComponent implements OnInit, OnChanges {
     );
   }
 
-  calcHighestPrioPlusOne(): number {
-    const priorities: number[] = this.toDos.map(toDo => toDo.priority);
-    if (!priorities.length) {
-      return 0;
-    }
-    return Math.max(...priorities) + 1;
-  }
 
   onToDoDeleted(toDoId: number): void {
     this.crudClient.deleteToDo(this.selectedToDoList.id, toDoId).subscribe(
+      this.fetchToDos,
+      this.fetchToDos
+    );
+  }
+
+  onPriorizationChanged(updates: PriorityUpdate[]): void {
+    this.crudClient.updatePriorities(updates).subscribe(
       this.fetchToDos,
       this.fetchToDos
     );
@@ -105,4 +98,11 @@ export class ToDoListPageComponent implements OnInit, OnChanges {
     return changes.selectedToDoList;
   }
 
+  private calcHighestPrioPlusOne(): number {
+    const priorities: number[] = this.toDos.map(toDo => toDo.priority);
+    if (!priorities.length) {
+      return 0;
+    }
+    return Math.max(...priorities) + 1;
+  }
 }

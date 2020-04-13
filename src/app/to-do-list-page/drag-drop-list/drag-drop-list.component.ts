@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { DebounceTimer } from 'src/app/common/utils/debounce-timer';
-import { PRIORIZATION_DEBOUNCE_TIME_IN_MILLIS } from 'src/app/common/constants';
+import { PRIORITIZATION_DEBOUNCE_TIME_IN_MILLIS } from 'src/app/common/constants';
 import { ToDo } from '../model/to-do.model';
 import { CrudClient } from 'src/app/common/services/crud-client.service';
 
@@ -19,10 +19,10 @@ export class DragDropListComponent {
 
   @Input() toDos: ToDo[] = [];
 
-  @Output() priorizationChanged = new EventEmitter<PriorityUpdate[]>();
+  @Output() prioritizationChanged = new EventEmitter<PriorityUpdate[]>();
   @Output() toDoDeleted = new EventEmitter<number>();
 
-  priorizationDebounceTimer = new DebounceTimer(PRIORIZATION_DEBOUNCE_TIME_IN_MILLIS);
+  prioritizationDebounceTimer = new DebounceTimer(PRIORITIZATION_DEBOUNCE_TIME_IN_MILLIS);
   markedToDos: ToDo[] = [];
   isDragging = false;
   
@@ -65,8 +65,8 @@ export class DragDropListComponent {
       this.mapToReverseOrder(event.previousIndex),
       this.mapToReverseOrder(event.currentIndex)
     );
-    this.priorizationDebounceTimer.stop();
-    this.priorizationDebounceTimer.start(this.submitPriorityOrder);
+    this.prioritizationDebounceTimer.stop();
+    this.prioritizationDebounceTimer.start(this.submitPriorityOrder);
   }
 
   mapToReverseOrder(index: number): number {
@@ -84,7 +84,7 @@ export class DragDropListComponent {
       }
     );
     if (updates.length && !this.isDragging) {
-      this.priorizationChanged.emit(updates);
+      this.prioritizationChanged.emit(updates);
     }
   }
 
