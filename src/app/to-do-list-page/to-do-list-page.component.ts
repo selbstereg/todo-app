@@ -1,13 +1,12 @@
 import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { faHeart } from '@fortawesome/fontawesome-free-regular'
 import { NamedEntity } from './model/named-entity.model';
-import { PLACEHOLDER_ADD_NEW_TO_DO, PRIORITIZATION_DEBOUNCE_TIME_IN_MILLIS } from '../common/constants';
+import { PLACEHOLDER_ADD_NEW_TO_DO } from '../common/constants';
 import { ToDo } from './model/to-do.model';
 import { CrudClient } from '../common/services/crud-client.service';
 import { MatDialog } from '@angular/material';
 import { FavouriteEinkaufItems } from '../favourite-einkauf-items/favourite-einkauf-items.component';
 import { filter } from 'rxjs/operators';
-import { DebounceTimer } from '../common/utils/debounce-timer';
 import { PriorityUpdate } from './drag-drop-list/drag-drop-list.component';
 
 @Component({
