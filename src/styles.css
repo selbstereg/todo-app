@@ -57,7 +57,6 @@ button + button {
 
 .box-item {
   padding: 10px 10px;
-  border-bottom: solid 1px var(--border-color);
   color: rgba(0, 0, 0, 0.87);
   display: flex;
   flex-direction: row;
@@ -67,6 +66,10 @@ button + button {
   cursor: move;
   background: white;
   font-size: 14px;
+}
+
+.box-item + .box-item {
+  border-top: solid 1px var(--border-color);
 }
 
 .float-right {

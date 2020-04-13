@@ -46,10 +46,6 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.box-item:last-child {
-  border: none;
-}
-
 .example-list.cdk-drop-list-dragging .box-item:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
