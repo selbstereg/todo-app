@@ -1,0 +1,134 @@
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { DebounceTimer } from 'src/app/common/utils/debounce-timer';
+import { PRIORIZATION_DEBOUNCE_TIME_IN_MILLIS } from 'src/app/common/constants';
+import { ToDo } from '../model/to-do.model';
+import { CrudClient } from 'src/app/common/services/crud-client.service';
+
+export interface PriorityUpdate {
+  toDoId: number;
+  priority: number;
+}
+
+@Component({
+  selector: 'drag-drop-list',
+  templateUrl: './drag-drop-list.component.html',
+  styleUrls: ['./drag-drop-list.component.css']
+})
+export class DragDropListComponent /*implements OnInit*/ {
+  
+  // refactor - can the selected to do list id be removed?
+  //@Input() selectedToDoListId: number;
+  @Input() toDos: ToDo[] = [];
+
+  @Output() priorizationChanged = new EventEmitter<PriorityUpdate[]>();
+  @Output() toDoDeleted = new EventEmitter<number>();
+
+  priorizationDebounceTimer = new DebounceTimer(PRIORIZATION_DEBOUNCE_TIME_IN_MILLIS);
+  markedToDos: ToDo[] = [];
+  isDragging = false;
+  
+  
+  constructor(
+    private crudClient: CrudClient,
+  ) {
+    //this.fetchToDos = this.fetchToDos.bind(this);
+    this.submitPriorityOrder = this.submitPriorityOrder.bind(this);
+  }
+
+  /*ngOnInit(): void {
+    this.fetchToDos();
+  }*/
+    
+  onMouseDown() {
+    this.isDragging = true;
+  }
+
+  onMouseUp() {
+    this.isDragging =false
+  }
+
+  // TODO: The logic to mark list items is duplicated (here and in favoureite-inkauf-items.component)
+  onClickToDo(clickedToDo: ToDo) {
+    if (this.isMarked(clickedToDo)) {
+      this.markedToDos = this.markedToDos.filter(toDo => toDo !== clickedToDo);
+    } else {
+      this.markedToDos.push(clickedToDo);
+    }
+  }
+
+  isMarked(clickedToDo: ToDo): boolean {
+    return this.markedToDos.includes(clickedToDo);
+  }
+
+  styleMarkedToDos(toDo: ToDo) {
+      return this.isMarked(toDo) ? 'marked-to-do' : '';
+  }
+
+  drop(event: CdkDragDrop<string[]>): void {
+    this.isDragging = false;
+    moveItemInArray(
+      this.toDos,
+      this.mapToReverseOrder(event.previousIndex),
+      this.mapToReverseOrder(event.currentIndex)
+    );
+    this.priorizationDebounceTimer.stop();
+    this.priorizationDebounceTimer.start(this.submitPriorityOrder);
+  }
+
+  mapToReverseOrder(index: number): number {
+    return this.toDos.length - 1 - index;
+  }
+
+  submitPriorityOrder(): void {
+    const updates: PriorityUpdate[] = [];
+    this.toDos.forEach(
+      (toDo, index) => {
+        if (toDo.priority !== index) {
+          toDo.priority = index;
+          updates.push({ toDoId: toDo.id, priority: toDo.priority });
+        }
+      }
+    );
+    if (updates.length && !this.isDragging) {
+      /* refactor - remove this:
+        this.crudClient.updatePriorities(updates).subscribe(
+        this.fetchToDos,
+        this.fetchToDos
+      );*/
+      this.priorizationChanged.emit(updates);
+    }
+  }
+
+  // refactor - is this right here?
+  /*private fetchToDos(): void {
+    this.crudClient.fetchToDos(this.selectedToDoListId).subscribe(
+      (toDos: ToDo[]) => {
+        this.toDos = toDos
+      }
+    );
+  }*/
+
+  calcHighestPrioPlusOne(): number {
+    const priorities: number[] = this.toDos.map(toDo => toDo.priority);
+    if (!priorities.length) {
+      return 0;
+    }
+    return Math.max(...priorities) + 1;
+  }
+
+  deleteToDo(toDo: ToDo): void {
+    this.toDoDeleted.emit(toDo.id);
+    /* refactor - delete
+      this.crudClient.deleteToDo(this.selectedToDoListId, toDo.id).subscribe(
+      this.fetchToDos,
+      this.fetchToDos
+    );*/
+  }
+
+  getToDosInReverseOrder(): ToDo[] {
+    const toDosCopy = this.toDos.slice();
+    return toDosCopy.reverse();
+  }
+
+}

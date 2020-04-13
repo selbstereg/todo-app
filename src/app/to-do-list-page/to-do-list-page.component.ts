@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material';
 import { FavouriteEinkaufItems } from '../favourite-einkauf-items/favourite-einkauf-items.component';
 import { filter } from 'rxjs/operators';
 import { DebounceTimer } from '../common/utils/debounce-timer';
+import { PriorityUpdate } from './drag-drop-list/drag-drop-list.component';
 
 @Component({
   selector: 'to-do-list-page',
@@ -33,7 +34,7 @@ export class ToDoListPageComponent implements OnInit, OnChanges {
   ) {
     this.addToDo = this.addToDo.bind(this);
     this.fetchToDos = this.fetchToDos.bind(this);
-    this.submitPriorityOrder = this.submitPriorityOrder.bind(this);
+    //this.submitPriorityOrder = this.submitPriorityOrder.bind(this);
   }
 
   ngOnInit(): void {
@@ -46,36 +47,36 @@ export class ToDoListPageComponent implements OnInit, OnChanges {
     }
   }
     
-  onMouseDown() {
+  /*onMouseDown() {
     this.isDragging = true;
   }
 
   onMouseUp() {
     this.isDragging =false
-  }
+  }*/
 
   onRefresh() {
     this.fetchToDos();
   }
 
   // TODO: The logic to mark list items is duplicated (here and in favoureite-inkauf-items.component)
-  onClickToDo(clickedToDo: ToDo) {
+  /*onClickToDo(clickedToDo: ToDo) {
     if (this.isMarked(clickedToDo)) {
       this.markedToDos = this.markedToDos.filter(toDo => toDo !== clickedToDo);
     } else {
       this.markedToDos.push(clickedToDo);
     }
-  }
+  }*/
 
-  isMarked(clickedToDo: ToDo): boolean {
+  /*isMarked(clickedToDo: ToDo): boolean {
     return this.markedToDos.includes(clickedToDo);
-  }
+  }*/
 
-  styleMarkedToDos(toDo: ToDo) {
+  /*styleMarkedToDos(toDo: ToDo) {
       return this.isMarked(toDo) ? 'marked-to-do' : '';
-  }
+  }*/
 
-  drop(event: CdkDragDrop<string[]>): void {
+  /*drop(event: CdkDragDrop<string[]>): void {
     this.isDragging = false;
     moveItemInArray(
       this.toDos,
@@ -84,13 +85,13 @@ export class ToDoListPageComponent implements OnInit, OnChanges {
     );
     this.priorizationDebounceTimer.stop();
     this.priorizationDebounceTimer.start(this.submitPriorityOrder);
-  }
+  }*/
 
-  mapToReverseOrder(index: number): number {
+  /*mapToReverseOrder(index: number): number {
     return this.toDos.length - 1 - index;
-  }
+  }*/
 
-  submitPriorityOrder(): void {
+  /*submitPriorityOrder(): void {
     const updates: { toDoId: number, priority: number}[] = [];
     this.toDos.forEach(
       (toDo, index) => {
@@ -106,8 +107,15 @@ export class ToDoListPageComponent implements OnInit, OnChanges {
         this.fetchToDos
       );
     }
+  }*/
+  onPriorizationChanged(updates: PriorityUpdate[]): void {
+    this.crudClient.updatePriorities(updates).subscribe(
+      this.fetchToDos,
+      this.fetchToDos
+    );
   }
 
+  // TODO: This is a hack. There should be to do list subtypes in the data model
   toDoListIsEinkaufsliste(): boolean {
     return this.selectedToDoList.name.toUpperCase().includes('EINKAUF');
   }
@@ -148,17 +156,18 @@ export class ToDoListPageComponent implements OnInit, OnChanges {
     return Math.max(...priorities) + 1;
   }
 
-  deleteToDo(toDo: ToDo): void {
-    this.crudClient.deleteToDo(this.selectedToDoList.id, toDo.id).subscribe(
+  /*deleteToDo(toDo: ToDo)*/
+  onToDoDeleted(toDoId: number): void {
+    this.crudClient.deleteToDo(this.selectedToDoList.id, toDoId).subscribe(
       this.fetchToDos,
       this.fetchToDos
     );
   }
 
-  getToDosInReverseOrder(): ToDo[] {
+  /*getToDosInReverseOrder(): ToDo[] {
     const toDosCopy = this.toDos.slice();
     return toDosCopy.reverse();
-  }
+  }*/
 
   private selectedToDoListChanged(changes: SimpleChanges) {
     return changes.selectedToDoList;

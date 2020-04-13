@@ -7,6 +7,7 @@ import { take, tap, catchError } from 'rxjs/operators';
 import { SpinnerOverlayService } from './spinner-overlay.service';
 import { NamedEntity } from 'src/app/to-do-list-page/model/named-entity.model';
 import { ErrorHandler } from './error-handler.service';
+import { PriorityUpdate } from 'src/app/to-do-list-page/drag-drop-list/drag-drop-list.component';
 
 
 @Injectable()
@@ -47,7 +48,7 @@ export class CrudClient {
     }
 
     // UPDATE
-    public updatePriorities(updates: { toDoId: number, priority: number}[]): Observable<number[]> {
+    public updatePriorities(updates: PriorityUpdate[]): Observable<number[]> {
         const requests: Observable<number>[] = updates.map(update => {
             const url: string = `${TO_DOS_ENDPOINT_URL}${update.toDoId}/priority`
             return this.httpClient.put(url, update.priority) as Observable<number>;

@@ -23,11 +23,13 @@ import { FavouriteEinkaufItems } from './favourite-einkauf-items/favourite-einka
 import { ConfirmationDialogComponent } from './common/confirmation-dialog/confirmation-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ErrorHandler } from './common/services/error-handler.service';
+import { DragDropListComponent } from './to-do-list-page/drag-drop-list/drag-drop-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToDoListPageComponent,
+    DragDropListComponent,
     ToDoListSelectionComponent,
     ItemAdderComponent,
     StopClickPropagation,
