@@ -21,10 +21,7 @@ export class ToDoListPageComponent implements OnInit, OnChanges {
 
   readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO;
   readonly faHeart = faHeart;
-  priorizationDebounceTimer = new DebounceTimer(PRIORIZATION_DEBOUNCE_TIME_IN_MILLIS);
   toDos: ToDo[] = [];
-  markedToDos: ToDo[] = [];
-  isDragging = false;
   
   
   constructor(

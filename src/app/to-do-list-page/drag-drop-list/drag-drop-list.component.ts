@@ -88,14 +88,6 @@ export class DragDropListComponent {
     }
   }
 
-  calcHighestPrioPlusOne(): number {
-    const priorities: number[] = this.toDos.map(toDo => toDo.priority);
-    if (!priorities.length) {
-      return 0;
-    }
-    return Math.max(...priorities) + 1;
-  }
-
   deleteToDo(toDo: ToDo): void {
     this.toDoDeleted.emit(toDo.id);
   }
