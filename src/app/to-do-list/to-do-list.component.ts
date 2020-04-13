@@ -16,7 +16,7 @@ import { DebounceTimer } from '../common/utils/debounce-timer';
   templateUrl: './to-do-list.component.html',
   styleUrls: ['./to-do-list.component.css']
 })
-export class ToDoListComponent implements OnInit, OnChanges {
+export class ToDoListPageComponent implements OnInit, OnChanges {
   
   @Input() selectedToDoList: NamedEntity;
 
