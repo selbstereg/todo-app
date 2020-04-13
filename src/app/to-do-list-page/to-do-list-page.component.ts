@@ -1,5 +1,4 @@
 import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { faHeart } from '@fortawesome/fontawesome-free-regular'
 import { NamedEntity } from './model/named-entity.model';
 import { PLACEHOLDER_ADD_NEW_TO_DO, PRIORIZATION_DEBOUNCE_TIME_IN_MILLIS } from '../common/constants';
