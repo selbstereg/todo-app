@@ -19,7 +19,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.crudClient.fetchToDoLists().subscribe(
-      (toDoLists: NamedEntity[]) => this.setSelectedToDoList(toDoLists[0])
+      (toDoLists: NamedEntity[]) => {
+        const toDoList: NamedEntity =
+          toDoLists.length
+            ? toDoLists[0]
+            : { name: 'Keine Listen gefunden', id: null }
+        this.setSelectedToDoList(toDoList)
+      }
     );
   }
 
