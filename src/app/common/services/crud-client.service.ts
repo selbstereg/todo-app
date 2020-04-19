@@ -27,7 +27,7 @@ export class CrudClient {
     }
 
     public addToDo(toDoListId: number, toDo: ToDo): Observable<ToDo> {
-        const url: string = `${TO_DO_LISTS_ENDPOINT_URL}${toDoListId}`;
+        const url: string = `${TO_DO_LISTS_ENDPOINT_URL}${toDoListId}/to-dos`;
         const request = () => this.httpClient.post(url, toDo);
 
         return this.sendRequest(request) as Observable<ToDo>;
