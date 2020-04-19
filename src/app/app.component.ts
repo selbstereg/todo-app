@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   constructor(private crudClient: CrudClient) {
   }
 
+  // TODO Paul Bauknecht 19.04.2020: Verbessere verhalten, wenn es noch keine Listen gibt oder die letzte gelöscht wurde
   ngOnInit(): void {
     this.crudClient.fetchToDoLists().subscribe(
       (toDoLists: NamedEntity[]) => {
