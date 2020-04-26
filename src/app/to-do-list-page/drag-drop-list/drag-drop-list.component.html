@@ -1,17 +1,18 @@
     
 <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-    <div
+    <to-do-ui
         *ngFor="let toDo of getToDosInReverseOrder()"
-        class="box-item"
-        [ngClass]="styleMarkedToDos(toDo)"
-        (click)="onClickToDo(toDo)"
+
+        [toDo]="toDo"
+        (toDoDeleted)="deleteToDo(toDo)"
+        
         (mousedown)="onMouseDown()"
         (touchstart)="onMouseDown()"
         (mouseup)="onMouseUp()"
         (touched)="onMouseUp()"
+        
+        class="box-item"
         cdkDrag
     >
-        {{toDo.name}}
-        <delete-button (delete)="deleteToDo(toDo)"></delete-button>
-    </div>
+    </to-do-ui>
 </div>

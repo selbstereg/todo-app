@@ -19,16 +19,15 @@ export class DragDropListComponent {
 
   @Input() toDos: ToDo[] = [];
 
+  // TODO: I think a change of prio can be submitted to the BE from here directly,
+  // as one does not need to know the to do list id.
   @Output() prioritizationChanged = new EventEmitter<PriorityUpdate[]>();
   @Output() toDoDeleted = new EventEmitter<number>();
 
   prioritizationDebounceTimer = new DebounceTimer(PRIORITIZATION_DEBOUNCE_TIME_IN_MILLIS);
-  markedToDos: ToDo[] = [];
   isDragging = false;
   
-  
   constructor(
-    private crudClient: CrudClient,
   ) {
     this.submitPriorityOrder = this.submitPriorityOrder.bind(this);
   }
@@ -39,23 +38,6 @@ export class DragDropListComponent {
 
   onMouseUp() {
     this.isDragging =false
-  }
-
-  // TODO: The logic to mark list items is duplicated (here and in favoureite-inkauf-items.component)
-  onClickToDo(clickedToDo: ToDo) {
-    if (this.isMarked(clickedToDo)) {
-      this.markedToDos = this.markedToDos.filter(toDo => toDo !== clickedToDo);
-    } else {
-      this.markedToDos.push(clickedToDo);
-    }
-  }
-
-  isMarked(clickedToDo: ToDo): boolean {
-    return this.markedToDos.includes(clickedToDo);
-  }
-
-  styleMarkedToDos(toDo: ToDo) {
-      return this.isMarked(toDo) ? 'marked-to-do' : '';
   }
 
   drop(event: CdkDragDrop<string[]>): void {

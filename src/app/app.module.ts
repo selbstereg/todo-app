@@ -24,6 +24,7 @@ import { ConfirmationDialogComponent } from './common/confirmation-dialog/confir
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ErrorHandler } from './common/services/error-handler.service';
 import { DragDropListComponent } from './to-do-list-page/drag-drop-list/drag-drop-list.component';
+import { ToDoUiComponent } from './to-do-list-page/drag-drop-list/to-do-ui/to-do-ui.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DragDropListComponent } from './to-do-list-page/drag-drop-list/drag-dro
     StopClickPropagation,
     DeleteButtonComponent,
     FavouriteEinkaufItems,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ToDoUiComponent
   ],
   imports: [
     DragDropModule,

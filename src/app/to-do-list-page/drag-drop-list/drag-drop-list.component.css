@@ -42,8 +42,8 @@
   .example-list.cdk-drop-list-dragging .box-item:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
-  
-  .marked-to-do {
-    background-color: var(--highlight-color);
+
+  /* TODO: This is part of the box-item styling hack mentioned in to-do-ui.component.html */
+  .box-item {
+    padding: 0;
   }
-  
