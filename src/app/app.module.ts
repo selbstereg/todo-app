@@ -25,6 +25,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ErrorHandler } from './common/services/error-handler.service';
 import { DragDropListComponent } from './to-do-list-page/drag-drop-list/drag-drop-list.component';
 import { ToDoUiComponent } from './to-do-list-page/drag-drop-list/to-do-ui/to-do-ui.component';
+import { ToDoEditorComponent } from './to-do-list-page/drag-drop-list/to-do-ui/to-do-editor/to-do-editor.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ToDoUiComponent } from './to-do-list-page/drag-drop-list/to-do-ui/to-do
     DeleteButtonComponent,
     FavouriteEinkaufItems,
     ConfirmationDialogComponent,
-    ToDoUiComponent
+    ToDoUiComponent,
+    ToDoEditorComponent
   ],
   imports: [
     DragDropModule,
@@ -62,7 +64,8 @@ import { ToDoUiComponent } from './to-do-list-page/drag-drop-list/to-do-ui/to-do
     AppComponent,
     MatSpinner,
     FavouriteEinkaufItems,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ToDoEditorComponent
   ]
 })
 export class AppModule { }

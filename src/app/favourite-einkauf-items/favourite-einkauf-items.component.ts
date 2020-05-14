@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
+// TODO: When the page is loaded, there is an error:
+// "The selector "favourite-einkauf-items" did not match any elements"
+// The reason is the bootstrapping of this component as specified in
+// app.module.ts, but bootstrapping is necessary to be able to use the
+// comp in mat dialogues. Fix this stuff.
 @Component({
     selector: 'favourite-einkauf-items',
     templateUrl: './favourite-einkauf-items.component.html',

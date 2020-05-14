@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ToDo } from '../../model/to-do.model';
 import { CrudClient } from 'src/app/common/services/crud-client.service';
+import { MatDialog } from '@angular/material';
+import { ToDoEditorComponent } from './to-do-editor/to-do-editor.component';
 
 
 
@@ -17,17 +19,15 @@ export class ToDoUiComponent {
     // the to do from the @OneToMany relation, without knowing the to do list.
     @Output() toDoDeleted = new EventEmitter<number>();
 
-    private isMarked = false;
-
-    constructor() {
-    }
-
-    styleMarked() {
-        return this.isMarked ? 'marked-to-do' : '';
+    constructor(private dialogService: MatDialog) {
     }
 
     onClick() {
-        this.isMarked = !this.isMarked;
+        this.dialogService.open(ToDoEditorComponent, {
+            data: {
+                toDoToEdit: this.toDo
+            }
+        });
     }
 
     deleteToDo(): void {

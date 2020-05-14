@@ -1,0 +1,18 @@
+<input
+  class="to-do-editor-name-input"
+  [(ngModel)]="editedName"
+>
+<div class="button-container">
+  <button
+    class="dialog-button"
+    (click)="saveToDo()"
+  >
+    Speichern
+  </button>
+  <button
+    class="dialog-button"
+    (click)="cancel()"
+  >
+    Abbrechen
+  </button>
+</div>

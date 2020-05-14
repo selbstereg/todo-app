@@ -12,6 +12,7 @@ import { PriorityUpdate } from 'src/app/to-do-list-page/drag-drop-list/drag-drop
 
 @Injectable()
 export class CrudClient {
+
     constructor(
         private httpClient: HttpClient,
         private spinnerOverlayService: SpinnerOverlayService,
@@ -48,6 +49,13 @@ export class CrudClient {
     }
 
     // UPDATE
+    public updateToDo(toDo: ToDo) {
+        const url: string = `${TO_DOS_ENDPOINT_URL}${toDo.id}`
+        const request = () => this.httpClient.put(url, toDo);
+
+        return this.sendRequest(request) as Observable<ToDo>;
+    }
+
     public updatePriorities(updates: PriorityUpdate[]): Observable<number[]> {
         const requests: Observable<number>[] = updates.map(update => {
             const url: string = `${TO_DOS_ENDPOINT_URL}${update.toDoId}/priority`
