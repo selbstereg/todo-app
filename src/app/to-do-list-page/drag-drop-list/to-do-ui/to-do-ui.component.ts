@@ -19,7 +19,7 @@ export class ToDoUiComponent {
 
     private isMarked = false;
 
-    constructor(private crudClient: CrudClient) {
+    constructor() {
     }
 
     styleMarked() {
