@@ -9,15 +9,19 @@
         {{item}}
     </div>
 </div>
-<button
-class="float-right"
-(click)="onAddItems()"
+<div
+    class="button-container"
 >
-    Hinzufügen
-</button>
-<button
-    class="float-right"
-    (click)="onCancel()"
->
-    Abbrechen
-</button>
+    <button
+        class="dialog-button"
+        (click)="onAddItems()"
+    >
+        Hinzufügen
+    </button>
+    <button
+        class="dialog-button"
+        (click)="onCancel()"
+    >
+        Abbrechen
+    </button>
+</div>
