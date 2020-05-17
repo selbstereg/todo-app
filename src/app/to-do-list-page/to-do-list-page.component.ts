@@ -15,14 +15,14 @@ import { PriorityUpdate } from './drag-drop-list/drag-drop-list.component';
   styleUrls: ['./to-do-list-page.component.css']
 })
 export class ToDoListPageComponent implements OnInit, OnChanges {
-  
+
   @Input() selectedToDoList: NamedEntity;
 
   readonly ITEM_ADDER_PLACEHOLDER = PLACEHOLDER_ADD_NEW_TO_DO;
   readonly faHeart = faHeart;
   toDos: ToDo[] = [];
-  
-  
+
+
   constructor(
     private crudClient: CrudClient,
     private dialogService: MatDialog
@@ -34,7 +34,7 @@ export class ToDoListPageComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.fetchToDos();
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     if (this.selectedToDoListChanged(changes)) {
       this.fetchToDos();
@@ -70,7 +70,7 @@ export class ToDoListPageComponent implements OnInit, OnChanges {
   }
 
   addToDo(toDoName: string): void {
-    const toDo: ToDo = { name: toDoName, priority: this.calcHighestPrioPlusOne(), id: null };
+    const toDo: ToDo = { name: toDoName, details: '', priority: this.calcHighestPrioPlusOne(), id: null };
     this.toDos.push(toDo);
     this.crudClient.addToDo(this.selectedToDoList.id, toDo).subscribe(
       this.fetchToDos,

@@ -12,6 +12,7 @@ export class ToDoEditorComponent {
 
     toDo: ToDo;
     editedName = '';
+    editedDetails = '';
 
     constructor(
         private crudClient: CrudClient,
@@ -19,10 +20,12 @@ export class ToDoEditorComponent {
         @Inject(MAT_DIALOG_DATA) private data: any) {
             this.toDo = this.data.toDoToEdit;
             this.editedName = this.toDo.name;
+            this.editedDetails = this.toDo.details;
     }
 
     saveToDo() {
         this.toDo.name = this.editedName;
+        this.toDo.details = this.editedDetails;
         this.crudClient.updateToDo(this.toDo).subscribe();
         this.dialogRef.close();
     }

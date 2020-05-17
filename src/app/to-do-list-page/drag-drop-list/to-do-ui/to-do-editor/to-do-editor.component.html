@@ -1,7 +1,12 @@
 <input
-  class="to-do-editor-name-input"
+  class="name-input"
   [(ngModel)]="editedName"
 >
+<textarea
+  class="details-input"
+  rows="8"
+  [(ngModel)]="editedDetails"
+></textarea>
 <div class="button-container">
   <button
     class="dialog-button"
