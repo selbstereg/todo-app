@@ -24,6 +24,7 @@ export class ToDoUiComponent {
 
     onClick() {
         this.dialogService.open(ToDoEditorComponent, {
+            minWidth: 280,
             data: {
                 toDoToEdit: this.toDo
             }
