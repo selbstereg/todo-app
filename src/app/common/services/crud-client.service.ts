@@ -50,7 +50,7 @@ export class CrudClient {
 
     // UPDATE
     public updateToDo(toDo: ToDo) {
-        const url: string = `${TO_DOS_ENDPOINT_URL}${toDo.id}`
+        const url: string = `${TO_DOS_ENDPOINT_URL}`;
         const request = () => this.httpClient.put(url, toDo);
 
         return this.sendRequest(request) as Observable<ToDo>;
