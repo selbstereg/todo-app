@@ -6,7 +6,6 @@
     >
         {{ toDoList.name }}
         <delete-button
-            stop-click-propagation
             (delete)="onClickDeleteButton(toDoList)"
         >
         </delete-button>
