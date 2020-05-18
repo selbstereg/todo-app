@@ -7,6 +7,7 @@ the creation of ToDoUiComponent. Make the styling less hacky. -->
 >
     {{toDo.name}}
     <delete-button
+        stop-click-propagation
         (delete)="deleteToDo()"
     >
     </delete-button>
