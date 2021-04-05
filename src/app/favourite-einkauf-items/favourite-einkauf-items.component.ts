@@ -18,10 +18,11 @@ export class FavouriteEinkaufItems {
         'Bananen',
         'Brot',
         'Brotaufstrich',
+        'Klopapier',
         'Milch',
         'Pfandflaschen zurückgeben',
         'Shampoo',
-        'Zahnpasta'
+        'Sojajoghurt'
     ];
     selectedItems: string[] = [];
 
